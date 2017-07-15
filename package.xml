@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <name>vss_sdk</name>
+  <version>0.0.0</version>
+  <description>The vss_sdk package</description>
+
+
+  <maintainer email="autobotz.ufmg@gmail.com">Autobotz</maintainer>
+
+  <license>GPLv3</license>
+
+  <!-- <url type="website">http://wiki.ros.org/vss_sdk</url> -->
+  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
