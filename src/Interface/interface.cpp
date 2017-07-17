@@ -12,16 +12,13 @@ Interface::Interface(){
 }
 
 //! Esse método deve ser chamado apenas uma vez
-void Interface::createSocketSendState(vss_state::Global_State *global_state, string addr_server_multicast){
+void Interface::createSendState(vss_sdk::Global_State *global_state){
 	//! Global_State é recebido como ponteiro, assim facilitando o envio de novos estados
 	this->global_state = global_state;
-	this->addr_server_multicast = addr_server_multicast;
+  nhA.setCallbackQueue(&qA);
+  pubA = nhA.advertise<std_msgs::String>("msgA", 5);
 
-	context = new zmq::context_t(1);
-	socket = new zmq::socket_t(*context, ZMQ_PUB);
-
-	std::cout << "Connecting Server Multicast Sender: " << addr_server_multicast << std::endl;
-	socket->bind(addr_server_multicast.c_str());
+	//std::cout << "Connecting Server Multicast Sender: " << std::endl;
 }
 
 //! Esse método deve ser chamado em um loop infinito controlado.
@@ -38,11 +35,11 @@ void Interface::sendState(){
 }
 
 //! Esse método deve ser chamado apenas uma vez
-void Interface::createSocketReceiveState(vss_state::Global_State *global_state, string addr_client_multicast){
+void Interface::createReceiveState(vss_state::Global_State *global_state, string addr_client_multicast){
 	//! Global_State é recebido como ponteiro, assim facilitando o recebimento de novos estados
 	this->global_state = global_state;
 	this->addr_client_multicast = addr_client_multicast;
-	
+
 	context = new zmq::context_t(1);
 	socket = new zmq::socket_t(*context, ZMQ_SUB);
 
@@ -69,7 +66,7 @@ void Interface::createSendCommandsTeam1(vss_command::Global_Commands* global_com
 	//! Global_Commands é recebido como ponteiro, assim facilitando o envio de novos comandos
 	this->global_commands = global_commands;
 	this->addr_client_simulator_team1 = addr_client_simulator_team1;
-	
+
 	context_command_yellow = new zmq::context_t(1);
 	socket_command_yellow = new zmq::socket_t(*context_command_yellow, ZMQ_PAIR);
 
@@ -96,7 +93,7 @@ void Interface::createSendCommandsTeam2(vss_command::Global_Commands* global_com
 	//! Global_Commands é recebido como ponteiro, assim facilitando o envio de novos comandos
 	this->global_commands = global_commands;
 	this->addr_client_simulator_team2 = addr_client_simulator_team2;
-	
+
 	context_command_blue = new zmq::context_t(1);
 	socket_command_blue = new zmq::socket_t(*context_command_blue, ZMQ_PAIR);
 
@@ -174,7 +171,7 @@ void Interface::createSendDebugTeam1(vss_debug::Global_Debug* global_debug, stri
 	//! Global_Debug é recebido como ponteiro, assim facilitando o envio de novas informações de debug
 	this->global_debug = global_debug;
 	this->addr_client_debug_team1 = addr_client_debug_team1;
-	
+
 	context_debug = new zmq::context_t(1);
 	socket_debug = new zmq::socket_t(*context_debug, ZMQ_PAIR);
 
@@ -227,7 +224,7 @@ void Interface::createSendDebugTeam2(vss_debug::Global_Debug* global_debug, stri
 	//! Global_Debug é recebido como ponteiro, assim facilitando o envio de novas informações de debug
 	this->global_debug = global_debug;
 	this->addr_client_debug_team2 = addr_client_debug_team2;
-	
+
 	context_debug = new zmq::context_t(1);
 	socket_debug = new zmq::socket_t(*context_debug, ZMQ_PAIR);
 
