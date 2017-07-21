@@ -19,31 +19,32 @@ using namespace std;
 //! Essa classe define as interfaces utilizadas em todos os projetos do VSS-SDK, em outras palavras, todos os sockets abertos em todos os projetos estão aqui.
 class Interface{
 protected:
-	//! Contexto do socket de envio de estados pelo VSS-Vision. E contexto do socket de recebimento de estados pelos VSS-SampleStrategys
-	zmq::context_t *context;
-	//! Socket de envio de estados pelo VSS-Vision. E socket de recebimento de estados pelos VSS-SampleStrategys
-    zmq::socket_t *socket;
+  ros::NodeHandle nh_state;
+  ros::NodeHandle nh_command_yellow;
+  ros::NodeHandle nh_command_blue;
+  ros::NodeHandle nh_debug;
 
-	//! (Time Amarelo) Contexto do socket de envio de comandos por um VSS-SampleStrategy ou VSS-Joystick. E contexto do socket de recebimento de comandos pelo VSS-Simulator
-	zmq::context_t *context_command_yellow;
-	//! (Time Amarelo) Socket de envio de comandos por um VSS-SampleStrategy ou VSS-Joystick. E socket de recebimento de comandos pelo VSS-Simulator
-    zmq::socket_t *socket_command_yellow;
+  ros::CallbackQueue q_state;
+  ros::CallbackQueue q_command_yellow;
+  ros::CallbackQueue q_command_blue;
+  ros::CallbackQueue q_debug;
 
-	//! (Time Azul) Contexto do socket de envio de comandos por um VSS-SampleStrategy ou VSS-Joystick. E contexto do socket de recebimento de comandos pelo VSS-Simulator
-	zmq::context_t *context_command_blue;
-	//! (Time Azul) Socket de envio de comandos por um VSS-SampleStrategy ou VSS-Joystick. E socket de recebimento de comandos pelo VSS-Simulator
-    zmq::socket_t *socket_command_blue;
+  ros::Publisher pub_state;
+  ros::Publisher pub_command_yellow;
+  ros::Publisher pub_command_blue;
+  ros::Publisher pub_debug;
 
-	//! Contexto do socket de envio de informações de debug por um VSS-SampleStrategy. E contexto do socket de recebimento de informações de debug pelo VSS-Viewer
-	zmq::context_t *context_debug;
-	//! Socket de envio de informações de debug por um VSS-SampleStrategy. E socket de recebimento de informações de debug pelo VSS-Viewer
-	zmq::socket_t *socket_debug;
+  ros::Subscriber sub_state;
+  ros::Subscriber sub_command_yellow;
+  ros::Subscriber sub_command_blue;
+  ros::Subscriber sub_debug;
 
 	//! Pacote de estados (Utilizado pelo VSS-Simulator e VSS-Vision, para enviar informações do campo) (Utilizado também pelo VSS-Viewer, para desenhar a estado do jogo e pelo VSS-SampleStrategy para construir-se uma estratégia)
 	vss_sdk::Global_State *global_state;
 
 	//! Pacote de comandos (Utilizado por VSS-SampleStrategys e VSS-Joysticks, para enviar comandos para robôs virtuais) (Utilizado também pelo VSS-Simulator, para receber os comandos de cada robô)
-	vss_sdk::Global_Commands *global_commands;
+ 	vss_sdk::Global_Commands *global_command_yellow;
+	vss_sdk::Global_Commands *global_command_blue;
 
 	//! Pacote de debug visual (Utilizado por VSS-SampleStrategys, para enviar informações da estratégia para o VSS-Viewer desenhar)
 	vss_sdk::Global_Debug *global_debug;
@@ -59,6 +60,7 @@ public:
 	//! Método responsável por criar o socket de recebimento de estados em VSS-SampleStrategys
 	void createReceiveState(vss_state::Global_State*, string addr_client_multicast = "tcp://localhost:5555");
 	//! Método responsável por receber um novo estado em VSS-SampleStrategys
+  void callbackReceiveState(const std_msgs::String::ConstPtr& msg);
 	void receiveState();
 
 	//! Método responsável por criar o socket de envio de comandos em VSS-SampleStrategys ou VSS-Joysticks (Time Amarelo)
