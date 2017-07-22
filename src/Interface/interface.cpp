@@ -43,23 +43,3 @@ template <class msg_Type>
 void Interface<msg_Type>::receive(){
   while (ros::ok()) q_state.callAvailable(ros::WallDuration());
 }
-
-//TODO verificar metodos print*
-
-void Interface<msg_Type>::printState(){
-	std::string text_str;
-    google::protobuf::TextFormat::PrintToString(*global_state, &text_str);
-    std::cout << text_str << std::endl;
-}
-
-void Interface<msg_Type>::printCommand(){
-	std::string text_str;
-    google::protobuf::TextFormat::PrintToString(*global_commands, &text_str);
-    std::cout << text_str << std::endl;
-}
-
-void Interface<msg_Type>::printDebug(){
-	std::string text_str;
-    google::protobuf::TextFormat::PrintToString(*global_debug, &text_str);
-    std::cout << text_str << std::endl;
-}

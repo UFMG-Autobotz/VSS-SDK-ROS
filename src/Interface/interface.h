@@ -41,13 +41,6 @@ public:
   void createReceive(msg_Type *message, std::string nodeName);
   void callback(const msg_Type message);
   void receive();
-
-  //! Método que pode ser utilizado para imprimir o pacote de estado recebido/enviado no terminal
-  void printState();
-  //! Método que pode ser utilizado para imprimir o pacote de comando recebido/enviado no terminal
-  void printCommand();
-  //! Método que pode ser utilizado para imprimir o pacote de debug recebido/enviado no terminal
-  void printDebug();
 };
 
 #endif // _INTERFACE_H_
