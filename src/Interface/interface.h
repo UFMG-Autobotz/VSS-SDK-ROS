@@ -36,9 +36,6 @@ protected:
   msg_Type *msg;
 
 public:
-  //! Construtor DEFAULT
-  Interface();
-
   void createSend(msg_Type *message, std::string nodeName);
   void send();
   void createReceive(msg_Type *message, std::string nodeName);
