@@ -1,16 +1,16 @@
-#Essa informação é utilizada para
-#representar uma bola no espaço do Futebol de Robôs, contendo: Pose; Velocidade linear e tangencial; Estimativa
-#da Pose por parte do Filtro de Kalman (Necessário em ambiente real pelo VSS-Vision); e Velocidade linear e tangencial
-#estimados pelo Filtro de Kalman.
+# Essa informação é utilizada para
+# representar uma bola no espaço do Futebol de Robôs, contendo: Pose; Velocidade linear e tangencial; Estimativa
+# da Pose por parte do Filtro de Kalman (Necessário em ambiente real pelo VSS-Vision); e Velocidade linear e tangencial
+# estimados pelo Filtro de Kalman.
 
-#Posição de uma bola. Sendo somente esse o valor OBRIGATÓRIO, pois os outros estão sendo implementados ainda.
+# Posição de uma bola. Sendo somente esse o valor OBRIGATÓRIO, pois os outros estão sendo implementados ainda.
 s_Pose[] pose
 
-#Velocidade linear e tangencial de uma bola
+# Velocidade linear e tangencial de uma bola
 s_Pose[] v_pose
 
-#Estimativa de Posição de uma bola
+# Estimativa de Posição de uma bola
 s_Pose[] k_pose
 
-#Estimativa de Velocidade linear e tangencial de uma bola
+# Estimativa de Velocidade linear e tangencial de uma bola
 s_Pose[] k_v_pose
