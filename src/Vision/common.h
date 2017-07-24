@@ -22,7 +22,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/video/video.hpp>
 
-#include "VSS-Interface/cpp/interface.h"    // VSS
+#include "../Interface/interface.h"    // VSS
 
 #define FIELD_LENGHT            150.0              // 150.0 cm
 #define FIELD_WIDTH             130.0              // 130.0 cm
@@ -60,7 +60,7 @@ namespace common{
     enum{ ORANGE = 0, BLUE = 1, YELLOW = 2, RED = 3, PINK = 4, PURPLE = 5, GREEN = 6, BROWN = 7, ROTATION = 8, CUT = 9 };
 
     //! This enum represents all types of blob that can be used.
-    enum{ SQUARES = 0, RECTANGLES = 1, CIRCLES = 2 };   
+    enum{ SQUARES = 0, RECTANGLES = 1, CIRCLES = 2 };
 
     //! This enum represents all unknown things.
     enum{ UNKNOWN = -1 };
@@ -162,9 +162,9 @@ namespace common{
 
     //! This struct represents a Color that can be calibrated: made by 2 Pixels that represents a range of color, Bottom Pixel Limit and Top Pixel Limit.
     struct VisionColor{
-        //! Data: Bottom Pixel Limit 
+        //! Data: Bottom Pixel Limit
         Pixel min;
-        //! Data: Top Pixel Limit 
+        //! Data: Top Pixel Limit
         Pixel max;
 
         //! Constructor default: VisionColor c;
@@ -268,7 +268,7 @@ namespace common{
         //! Data: day of calibration. used ti save in db
         string data;
 
-        //! Default constructor: Calibration c; initialize the vector with range of colors in HSV to track the objects with Saved Video and Saved Image. 
+        //! Default constructor: Calibration c; initialize the vector with range of colors in HSV to track the objects with Saved Video and Saved Image.
         Calibration(){
             comment = "lorem";
 
@@ -390,7 +390,7 @@ namespace common{
         };
     };
 
-    //! This function clean a stringstream 
+    //! This function clean a stringstream
     void clearSS(stringstream &ss);
 
     //! Get int and convert to string.

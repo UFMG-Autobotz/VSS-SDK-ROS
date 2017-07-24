@@ -17,10 +17,18 @@
 #include <string>
 #include "unistd.h"
 
-//REVIEW confirir nomes das mensagens
 #include "vss_sdk/Global_State.h"
+#include "vss_sdk/s_Ball_State.h"
+#include "vss_sdk/s_Pose.h"
+#include "vss_sdk/s_RGB.h"
+#include "vss_sdk/s_Robot_State.h"
+
 #include "vss_sdk/Global_Commands.h"
+#include "vss_sdk/c_Robot_Command.h"
+
 #include "vss_sdk/Global_Debug.h"
+#include "vss_sdk/d_Path.h"
+#include "vss_sdk/d_Pose.h"
 
 using namespace std;
 

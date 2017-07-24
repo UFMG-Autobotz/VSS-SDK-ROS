@@ -58,9 +58,7 @@ HEADERS  += mainwindow.h \
     sqlite.h \
     vision.h \
     qcustomlabel.h \
-    VSS-Interface/cpp/state.pb.h \
-    VSS-Interface/cpp/command.pb.h \
-    VSS-Interface/cpp/interface.h \
+    ../Interface/interface.h \
     kalman.h
 
 FORMS    += mainwindow.ui

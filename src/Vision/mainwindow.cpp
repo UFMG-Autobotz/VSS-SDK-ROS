@@ -9,12 +9,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+// para evitar erros de ligaçao:
+//https://www.codeproject.com/Articles/48575/How-to-define-a-template-class-in-a-h-file-and-imp
+#include "../Interface/interface.cpp"
+
 const int ROWS = 2;
 const int COLUMNS = 3;
 
 //! Addendum
 //! --------
-//! 
+//!
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -232,7 +236,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::getAllDevices(){
     devices.clear();
     devices_id.clear();
@@ -261,7 +265,7 @@ void MainWindow::getAllDevices(){
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::addMainItem(){
     //! >  Create the entire tab
     mainItem->setIcon(0, package);
@@ -373,7 +377,7 @@ void MainWindow::addCameraCalibrationItem(){
     btnDoCameraCalib->setMaximumHeight(20);
     connect(btnDoCameraCalib, SIGNAL (clicked()), this, SLOT (evtCalibrationCam()));
 
-    cameraCalibration.at(1)->setText(1, "0º");        
+    cameraCalibration.at(1)->setText(1, "0º");
     cameraCalibration.at(2)->setText(1, "00, 00, 000, 000");
     ui->treeMain->setItemWidget(cameraCalibration.value(3), 1, btnDoCameraCalib);
 
@@ -759,7 +763,7 @@ void MainWindow::addExecutionOptions(){
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::checkboxCamera(int a){
     //> If camera it's true, image and video it's false
     if(checkUseCamera->isChecked()){
@@ -770,7 +774,7 @@ void MainWindow::checkboxCamera(int a){
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::checkboxImage(int a){
     //!> If image it's true, video and camera it's false
     if(checkUseImage->isChecked()){
@@ -781,7 +785,7 @@ void MainWindow::checkboxImage(int a){
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::checkboxVideo(int a){
     //! > If video it's true, iamge and camera it's false
     if(checkUseVideo->isChecked()){
@@ -792,7 +796,7 @@ void MainWindow::checkboxVideo(int a){
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::buildTrees(){
     QStringList headers, headers2;
 
@@ -842,7 +846,7 @@ void MainWindow::buildTrees(){
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::mouseCurrentPos(){
     //!> Update the plot values on layout
     clearSS(ss);
@@ -852,7 +856,7 @@ void MainWindow::mouseCurrentPos(){
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::mouseLeftPressed(){
     if(!vi->get_vision_reception()){
         if(calib->get_type_calibration()){
@@ -863,17 +867,17 @@ void MainWindow::mouseLeftPressed(){
             _calib.cut.at(0).y = image->y-10;
 
             stringstream ss;
-            ss << _calib.cut.at(0).x << ", " << _calib.cut.at(0).y << ", " << _calib.cut.at(1).x << ", " << _calib.cut.at(1).y; 
-            cameraCalibration.at(2)->setText(1, ss.str().c_str());   
+            ss << _calib.cut.at(0).x << ", " << _calib.cut.at(0).y << ", " << _calib.cut.at(1).x << ", " << _calib.cut.at(1).y;
+            cameraCalibration.at(2)->setText(1, ss.str().c_str());
         }
     }
 }
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::mouseRightPressed(){
-    if(!vi->get_vision_reception()){    
+    if(!vi->get_vision_reception()){
         if(calib->get_type_calibration()){
             //! > Update the qtd of right clicks on vision
             calib->set_mouse_click_right(calib->get_mouse_click_right()+1);
@@ -882,8 +886,8 @@ void MainWindow::mouseRightPressed(){
             _calib.cut.at(1).y = image->y-10;
 
             stringstream ss;
-            ss << _calib.cut.at(0).x << ", " << _calib.cut.at(0).y << ", " << _calib.cut.at(1).x << ", " << _calib.cut.at(1).y; 
-            cameraCalibration.at(2)->setText(1, ss.str().c_str());  
+            ss << _calib.cut.at(0).x << ", " << _calib.cut.at(0).y << ", " << _calib.cut.at(1).x << ", " << _calib.cut.at(1).y;
+            cameraCalibration.at(2)->setText(1, ss.str().c_str());
         }
     }
 }
@@ -898,7 +902,7 @@ void MainWindow::mouseLeave(){
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::evtCalibrationColors(){
     //! > Toggle between ON/OFF calibration
     if(!calib->get_vision_reception()){
@@ -925,7 +929,7 @@ void MainWindow::evtCalibrationColors(){
 
         //! > Disable options of input data
         cmbColors->setDisabled(true);
-        
+
         cmbSavedImages->setDisabled(true);
         checkUseImage->setDisabled(true);
 
@@ -936,7 +940,7 @@ void MainWindow::evtCalibrationColors(){
             cmbCameraIds->setDisabled(true);
             checkUseCamera->setDisabled(true);
         }
-        
+
         //! > Update the values of HSV that will be plot on sliders
         updateValuesHSV();
         initCalibrationColors();
@@ -984,7 +988,7 @@ void MainWindow::evtCalibrationColors(){
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::evtCalibrationCam(){
     //! > Toggle between ON/OFF calibration
     if(!calib->get_vision_reception()){
@@ -1044,7 +1048,7 @@ void MainWindow::evtCalibrationCam(){
         checkUseVideo->setDisabled(false);
 
         cmbColors->setDisabled(false);
-        
+
         btnDoCameraCalib->setText("Do");
         btnDoColorCalib->setDisabled(false);
         btnRunVision->setDisabled(false);
@@ -1056,7 +1060,7 @@ void MainWindow::evtCalibrationCam(){
 
 //! Addendum
 //! --------
-//! 
+//!
 void MainWindow::evtVision(){
     //! > Toggle between ON/OFF calibration
     if(!vi->get_vision_reception()){
@@ -1087,14 +1091,14 @@ void MainWindow::evtVision(){
         if(has_a_camera){
             cmbCameraIds->setDisabled(true);
             checkUseCamera->setDisabled(true);
-        }  
+        }
 
         defineColors();
-        
+
         //! > Turn ON the vision thread
         vi->set_vision_reception(true);
 
-        
+
         initPlotValues();
 
         btnDoCameraCalib->setDisabled(true);
@@ -1405,7 +1409,7 @@ void MainWindow::updateRotation(int value){
 
     stringstream ss;
     ss << new_value << "º";
-    cameraCalibration.at(1)->setText(1, ss.str().c_str());        
+    cameraCalibration.at(1)->setText(1, ss.str().c_str());
 }
 
 void MainWindow::getNewImageCalib(){
@@ -1414,7 +1418,7 @@ void MainWindow::getNewImageCalib(){
 
 void MainWindow::getNewStateVision(){
     image->setPixmap(QPixmap::fromImage(mat2Image(vi->raw_in)));
-    
+
     global_state = State2Global_State(state, execConfig);
 
     interface.sendState();

@@ -24,83 +24,83 @@ copies or substantial portions of the Software.
 #include "strategies/Strategy.h"
 
 #include "strategies/ModelStrategy.h"
-#include "VSS-Interface/cpp/interface.h"
+#include "../Interface/interface.h"
 #include "Arbiter.h"
 
 class Simulator{
-    struct GameState{
-        vector<RobotStrategy*> robotStrategiesTeam;
-        vector<RobotStrategy*> robotStrategiesAdv;
-        bool sameState;
+  struct GameState{
+    vector<RobotStrategy*> robotStrategiesTeam;
+    vector<RobotStrategy*> robotStrategiesAdv;
+    bool sameState;
 
-        GameState():sameState(true){};
-    };
+    GameState():sameState(true){};
+  };
 
 private:
-    Arbiter arbiter;
-    int contDebug;
+  Arbiter arbiter;
+  int contDebug;
 
-    bool fast_travel;
-    int qtd_of_goals;
-    bool develop_mode;
-    int status_team_1;
-    int status_team_2;
-    int goals_team_1;
-    int goals_team_2;
-    string name_team_1;
-    string name_team_2;
-    bool has_new_name_team_1;
-    bool has_new_name_team_2;
-    
-    Report report;
-    bool finish_match;
-    float timeStep;
-    float handTime;
-    int numRobotsTeam;
-    bool runningPhysics;
-    vector<Command> commands;
+  bool fast_travel;
+  int qtd_of_goals;
+  bool develop_mode;
+  int status_team_1;
+  int status_team_2;
+  int goals_team_1;
+  int goals_team_2;
+  string name_team_1;
+  string name_team_2;
+  bool has_new_name_team_1;
+  bool has_new_name_team_2;
 
-    vss_state::Global_State global_state;
-    vss_command::Global_Commands global_commands_team_1, global_commands_team_2;
-    Interface interface_sender;
+  Report report;
+  bool finish_match;
+  float timeStep;
+  float handTime;
+  int numRobotsTeam;
+  bool runningPhysics;
+  vector<Command> commands;
 
-    GameState* gameState;
-    int stratStep;
-    int loopBullet;
-    int caseWorld;
-    
-	Physics* physics;
-	vector<ModelStrategy*> strategies;
+  vss_sdk::Global_State global_state;
+  vss_sdk::Global_Commands global_commands_team_1, global_commands_team_2;
 
-    thread *thread_physics;
-    thread *thread_strategies;
-    thread *thread_send;
-    thread *thread_receive_team1;
-    thread *thread_receive_team2;
+  GameState* gameState;
+  int stratStep;
+  int loopBullet;
+  int caseWorld;
 
-    int count_situation, situation_team1, situation_team2;
+  Physics* physics;
+  vector<ModelStrategy*> strategies;
 
-	void updateWorld();
-    void updateReport();
-	btVector3 calcRelativePosition(btVector3 absPos, int attackDir);
-	void calcRelativeWorld(vector<RobotStrategy*> robotStrategiesTeam, int attackDir);
-	RobotStrategy* updateLocalPhysics(int id, RobotPhysics* bdRobot);
+  thread *thread_physics;
+  thread *thread_strategies;
+  thread *thread_send;
+  thread *thread_receive_team1;
+  thread *thread_receive_team2;
+
+  int count_situation, situation_team1, situation_team2;
+
+  void updateWorld();
+  void updateReport();
+  btVector3 calcRelativePosition(btVector3 absPos, int attackDir);
+  void calcRelativeWorld(vector<RobotStrategy*> robotStrategiesTeam, int attackDir);
+  RobotStrategy* updateLocalPhysics(int id, RobotPhysics* bdRobot);
 
 
-    btVector3 getRobotOrientation(RobotPhysics* robot);
-    btVector3 getRobotPosition(RobotPhysics* robot);
-    btVector3 getRobotVelocity(RobotPhysics* robot);
+  btVector3 getRobotOrientation(RobotPhysics* robot);
+  btVector3 getRobotPosition(RobotPhysics* robot);
+  btVector3 getRobotVelocity(RobotPhysics* robot);
+  
 public:
-	Simulator();
-	void runSimulator(int argc, char *argv[], ModelStrategy* strategyTeam, ModelStrategy* strategyAdv, bool fast_travel, int qtd_goal, bool develop_mode);
+  Simulator();
+  void runSimulator(int argc, char *argv[], ModelStrategy* strategyTeam, ModelStrategy* strategyAdv, bool fast_travel, int qtd_goal, bool develop_mode);
 
-	void runPhysics();
-	void runStrategies();
-    void runSender();
-    void runReceiveTeam1();
-    void runReceiveTeam2();
+  void runPhysics();
+  void runStrategies();
+  void runSender(Interface<vss_sdk::Global_State> *interface);
+  void runReceiveTeam1();
+  void runReceiveTeam2();
 
-    btVector3 getBallPosition();
+  btVector3 getBallPosition();
 };
 
 #endif

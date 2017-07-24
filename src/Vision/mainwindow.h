@@ -48,7 +48,6 @@
 #include "vision.h"
 #include "sqlite.h"
 #include "QtOpenCV.h"
-#include "VSS-Interface/cpp/interface.h"
 
 using namespace common;
 using namespace QtOcv;
@@ -182,14 +181,14 @@ protected:
     //! Method responsible for add the item that defines the type of pattern of colors (TODO)
     void addDefinePatternsItem();
 
-    //! Method responsible for add the item of define the configuration of colors of each team 
+    //! Method responsible for add the item of define the configuration of colors of each team
     void addExecutionConfig();
 
     //! Method responsible for add the item of calibration of colors
     void addCalibrateColors();
 
     void addVisionOptions();
-    
+
     //! Method responsible for add the item of define IP and PORT for interface
     void addNetOptions();
 

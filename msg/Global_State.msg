@@ -1,4 +1,4 @@
-# ID da mensagem, pode ser enviado como contra-prova para verificar se a comunicação está sincronizada. Sende este o único valor OPICIONAL
+# ID da mensagem, pode ser enviado como contra-prova para verificar se a comunicação está sincronizada. Sendo este o único valor OPICIONAL
 uint8 id
 
 # Booleano que define a origem da mensagem. Caso TRUE a mensagem vem do VSS-Vision, caso FALSE a mensagem vem do VSS-Simulator
