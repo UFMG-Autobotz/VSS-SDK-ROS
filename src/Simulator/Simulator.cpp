@@ -20,6 +20,11 @@ copies or substantial portions of the Software.
 #include "../Interface/interface.cpp"
 
 Simulator::Simulator(){
+  // inicializa ros
+  int c = 1;
+  char *v = "";
+  ros::init(c, &v, "simulator");
+
   contDebug = 0;
   stratStep = 0;
   loopBullet = 0;
@@ -95,13 +100,11 @@ void Simulator::runSimulator(int argc, char *argv[], ModelStrategy *stratBlueTea
 
   thread_physics = new thread(bind(&Simulator::runPhysics, this));
   thread_strategies = new thread(bind(&Simulator::runStrategies, this));
-  //thread_send = new thread(bind(&Simulator::runSender, this));
   thread_receive_team1 = new thread(bind(&Simulator::runReceiveTeam1, this));
   thread_receive_team2 = new thread(bind(&Simulator::runReceiveTeam2, this));
 
   thread_physics->join();
   thread_strategies->join();
-  //thread_send->join();
   thread_receive_team1->join();
   thread_receive_team2->join();
 
@@ -114,22 +117,23 @@ void Simulator::runReceiveTeam1(){
   Interface<vss_sdk::Global_Commands> interface;
   interface.createReceive(&global_commands_team_1, "commandsYellow");
 
-  while(!finish_match){
+  interface.receive();
 
-    interface.receive();
+  //TODO dar ritmo para o loop
+  while(!finish_match && ros::ok()){
 
     if(status_team_1 == -1){
       status_team_1 = 0;
       cout << "---Time amarelo conectado---" << endl;
     }
 
-    situation_team1 = global_commands_team_1.situation();
-    for(int i = 0 ; i < global_commands_team_1.robot_commands_size() ; i++){
-      commands.at(i) = Command((float)global_commands_team_1.robot_commands(i).left_vel()+0.001, (float)global_commands_team_1.robot_commands(i).right_vel()+0.001);
+    situation_team1 = global_commands_team_1.situation;
+    for(int i = 0 ; i < global_commands_team_1.robot_commands.size() ; i++){
+      commands.at(i) = Command((float)global_commands_team_1.robot_commands[i].left_vel+0.001, (float)global_commands_team_1.robot_commands[i].right_vel+0.001);
     }
 
     if(global_commands_team_1.has_name()){
-      name_team_1 = global_commands_team_1.name();
+      name_team_1 = global_commands_team_1.name;
       has_new_name_team_1 = true;
     }
   }
@@ -140,8 +144,9 @@ void Simulator::runReceiveTeam2(){
   Interface <vss_sdk::Global_Commands> interface;
   interface.createReceive(&global_commands_team_2, "commandsBlue");
 
-  while(!finish_match){
-    interface.receive();
+  interface.receive();
+
+  while(!finish_match && ros::ok()){
 
     if(status_team_2 == -1){
       status_team_2 = 0;
@@ -185,47 +190,49 @@ void Simulator::runSender(Interface<vss_sdk::Global_State> *interface){
     global_state.name_blue = name_team_2;
   }
 
-  vss_sdk::s_Ball_State *ball_s; // = global_state.add_balls();
-  ball_s->mutable_pose()->set_x(physics->getBallPosition().getX());
-  ball_s->mutable_pose()->set_y(physics->getBallPosition().getZ());
+  vss_sdk::s_Ball_State *ball_s;
+  ball_s.pose.x = physics->getBallPosition().getX();
+  ball_s.pose.y = physics->getBallPosition().getZ();
 
-  ball_s->mutable_v_pose()->set_x(physics->getBallVelocity().getX());
-  ball_s->mutable_v_pose()->set_y(physics->getBallVelocity().getZ());
+  ball_s.v_pose.x = physics->getBallVelocity().getX();
+  ball_s.v_pose.y = physics->getBallVelocity().getZ();
 
-  ball_s->mutable_k_pose()->set_x(0);
-  ball_s->mutable_k_pose()->set_y(0);
+  ball_s.k_pose.x = 0;
+  ball_s.k_pose.y = 0;
 
-  ball_s->mutable_k_v_pose()->set_x(0);
-  ball_s->mutable_k_v_pose()->set_y(0);
+  ball_s.k_v_pose.x = 0;
+  ball_s.k_v_pose.y = 0;
 
   global_state.balls[0] = balls_s;
 
   vector<RobotPhysics*> listRobots = physics->getAllRobots();
   for(int i = 0 ; i < 3 ; i++){
-    vss_state::Robot_State *robot_s = global_state.add_robots_blue();
+    vss_sdk::s_Robot_State robot_s;
     btVector3 posRobot = getRobotPosition(listRobots.at(i+3));
     btVector3 velRobot = getRobotVelocity(listRobots.at(i+3));
 
-    robot_s->mutable_pose()->set_x(posRobot.getX());
-    robot_s->mutable_pose()->set_y(posRobot.getZ());
+    robot_s.pose.x = posRobot.getX();
+    robot_s.pose.y = posRobot.getZ();
     float rads = atan2(getRobotOrientation(listRobots.at(i+3)).getZ(),getRobotOrientation(listRobots.at(i+3)).getX());
-    robot_s->mutable_pose()->set_yaw(rads);
+    robot_s.pose.yaw = rads;
 
-    robot_s->mutable_v_pose()->set_x(velRobot.getX());
-    robot_s->mutable_v_pose()->set_y(velRobot.getZ());
-    robot_s->mutable_v_pose()->set_yaw(0);
+    robot_s.v_pos.x = velRobot.getX();
+    robot_s.v_pos.y = velRobot.getZ();
+    robot_s.v_pos.yaw = 0;
 
-    robot_s->mutable_k_pose()->set_x(0);
-    robot_s->mutable_k_pose()->set_y(0);
-    robot_s->mutable_k_pose()->set_yaw(0);
+    robot_s.k_pos.x = 0;
+    robot_s.k_pos.y = 0;
+    robot_s.k_pos.yaw = 0;
 
-    robot_s->mutable_k_v_pose()->set_x(0);
-    robot_s->mutable_k_v_pose()->set_y(0);
-    robot_s->mutable_k_v_pose()->set_yaw(0);
+    robot_s.k_v_pos.x = 0;
+    robot_s.k_v_pos.y = 0;
+    robot_s.k_v_pos.yaw = 0;
+
+    global_state.robots_blue[i] = robot_s;
   }
 
   for(int i = 0 ; i < 3 ; i++){
-    vss_state::Robot_State robot_s;
+    vss_sdk::s_Robot_State robot_s;
     btVector3 posRobot = getRobotPosition(listRobots.at(i));
     btVector3 velRobot = getRobotVelocity(listRobots.at(i));
 
@@ -249,7 +256,7 @@ void Simulator::runSender(Interface<vss_sdk::Global_State> *interface){
     global_state.robots_yellow[i] = robot_s;
   }
 
-  interface.send();
+  interface->send();
 }
 
 void Simulator::runPhysics(){
@@ -262,7 +269,18 @@ void Simulator::runPhysics(){
   Interface <vss_sdk::Global_State> interface;
   interface.createSend(&global_state, "state");
 
-  while(!finish_match){
+  // inicializa vetor de robos
+  vss_sdk::s_Robot_State robot;
+  for (int i = 0; i < 3; i++) {
+    global_state.robots_yellow.push_back(robot);
+    global_state.robots_blue.push_back(robot);
+  }
+
+  // inicializa vetor de bolas
+  vss_sdk::s_Ball_State ball;
+  global_state.balls.push_back(ball);
+
+  while(!finish_match && ros::ok()){
     usleep(1000000.f*timeStep/handTime);
 
     //physics->setBallVelocity(btVector3(0.1, 0, 0));
@@ -357,7 +375,7 @@ void Simulator::runStrategies(){
 
   }
 
-  while(!finish_match){
+  while(!finish_match && ros::ok()){
     usleep(1000000.f*timeStep/handTime);
 
     if(!gameState->sameState){
