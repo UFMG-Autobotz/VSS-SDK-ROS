@@ -5,5 +5,3 @@
 uint8 r
 uint8 g
 uint8 b
-
-# nao aparece no s_Global_State

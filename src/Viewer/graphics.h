@@ -52,19 +52,12 @@ protected:
     //! Thread responsável por receber os pacotes de debug do time azul
     thread *thread_debug_team2;
 
-    //! Interface de comunicação responsável por receber estados do VSS-Vision e VSS-Simulator
-    Interface interface_state;
-    //! Interface de comunicação responsável por receber os pacotes de debug do time amarelo
-    Interface interface_debug_team1;
-    //! Interface de comunicação responsável por receber os pacotes de debug do time azul
-    Interface interface_debug_team2;
-
     //! Pacote que carrega os estados do VSS-Vision e VSS-Simulator
-    vss_state::Global_State global_state;
+    vss_sdk::Global_State global_state;
     //! Pacote que carrega as informações de debug do time amarelo
-    vss_debug::Global_Debug global_debug_team1;
+    vss_sdk::Global_Debug global_debug_team1;
     //! Pacote que carrega as informações de debug do time azul
-    vss_debug::Global_Debug global_debug_team2;
+    vss_sdk::Global_Debug global_debug_team2;
 
     //! Nome dos times amarelo e azul
     string name_team_1, name_team_2;

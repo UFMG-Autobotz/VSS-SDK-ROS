@@ -269,6 +269,10 @@ void Simulator::runPhysics(){
   Interface <vss_sdk::Global_State> interface;
   interface.createSend(&global_state, "state");
 
+  // REVIEW por enquanto estou inicializando o vetor de robos e de bolas assim
+  // porque acho que o viewer pode mandar mais de 3 robos e mais de uma bolas
+  // verificar se é possivel so definir o tamanho no .msg
+
   // inicializa vetor de robos
   vss_sdk::s_Robot_State robot;
   for (int i = 0; i < 3; i++) {
