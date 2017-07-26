@@ -17,7 +17,11 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(OpenCV REQUIRED)
+find_package(Qt5 REQUIRED COMPONENTS QtCore QtGui)
+find_package(GLUT REQUIRED)
+find_package(Bullet REQUIRED)
+find_package(sqlite3 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -127,6 +131,11 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
+  ${Qt5Widgets_INCLUDE_DIRS}
+  ${GLUT_INCLUDE_DIRS}
+  ${BULLET_INCLUDE_DIR}
+  ${SQLITE3_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
