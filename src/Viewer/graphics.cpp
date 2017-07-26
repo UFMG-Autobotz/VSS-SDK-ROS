@@ -41,7 +41,7 @@ Graphics::Graphics(){
   //Inicializa ROS
   int c = 1;
   char *v = "";
-  ros::init(c, &v, "simulator");
+  ros::init(c, &v, "viewer");
 
   //! Inicializa o time 1
   for(int i = 0 ; i < 3 ; i++){

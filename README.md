@@ -6,3 +6,4 @@ Dependências:
 * qt5
 * glut
 * Bullet physics
+* SQLite

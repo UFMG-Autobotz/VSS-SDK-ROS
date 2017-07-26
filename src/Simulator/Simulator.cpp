@@ -203,7 +203,7 @@ void Simulator::runSender(Interface<vss_sdk::Global_State> *interface){
   ball_s.k_v_pose.x = 0;
   ball_s.k_v_pose.y = 0;
 
-  global_state.balls[0] = balls_s;
+  global_state.ball = ball_s;
 
   vector<RobotPhysics*> listRobots = physics->getAllRobots();
   for(int i = 0 ; i < 3 ; i++){
@@ -272,17 +272,6 @@ void Simulator::runPhysics(){
   // REVIEW por enquanto estou inicializando o vetor de robos e de bolas assim
   // porque acho que o viewer pode mandar mais de 3 robos e mais de uma bolas
   // verificar se é possivel so definir o tamanho no .msg
-
-  // inicializa vetor de robos
-  vss_sdk::s_Robot_State robot;
-  for (int i = 0; i < 3; i++) {
-    global_state.robots_yellow.push_back(robot);
-    global_state.robots_blue.push_back(robot);
-  }
-
-  // inicializa vetor de bolas
-  vss_sdk::s_Ball_State ball;
-  global_state.balls.push_back(ball);
 
   while(!finish_match && ros::ok()){
     usleep(1000000.f*timeStep/handTime);

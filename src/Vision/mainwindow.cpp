@@ -31,8 +31,14 @@ MainWindow::MainWindow(QWidget *parent) :
     //! > Define the connection to SQLite
     sql = new SQLite("../data/main.db", "passwd");
 
+    // Inicializa ROS
+    int c = 1;
+    char *v = "";
+    ros::init(c, &v, "vision");
+
     //! Define the interface VSS
-    interface.createSocketSendState(&global_state);
+    Interface <vss_sdk::Global_State> interface;
+    interface.createSend(&global_state, "state");
 
     for(int i = 0 ; i < 8 ; i++){
         colors.push_back(0);
@@ -1421,7 +1427,7 @@ void MainWindow::getNewStateVision(){
 
     global_state = State2Global_State(state, execConfig);
 
-    interface.sendState();
+    interface.send();
     //qDebug() << "send state";
 }
 
