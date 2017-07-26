@@ -29,7 +29,7 @@ template <class msg_Type>
 void Interface<msg_Type>::createReceive(msg_Type *message, std::string nodeName){
   msg = message;
   nh.setCallbackQueue(&q);
-  sub = nh.subscribe(nodeName, 5, &Interface3::callback, this);
+  sub = nh.subscribe(nodeName, 5, &Interface::callback, this);
 }
 
 template <class msg_Type>
@@ -41,5 +41,5 @@ void Interface<msg_Type>::callback(const msg_Type message) {
 //! O recebimento tratado aqui é não bloqueante
 template <class msg_Type>
 void Interface<msg_Type>::receive(){
-  while (ros::ok()) q_state.callAvailable(ros::WallDuration());
+  while (ros::ok()) q.callAvailable(ros::WallDuration());
 }

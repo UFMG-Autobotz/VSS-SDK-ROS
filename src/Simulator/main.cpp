@@ -18,7 +18,12 @@ copies or substantial portions of the Software.
 #include "strategies/ModelStrategy.h"
 #include "strategies/Strategy.h"
 #include "strategies/StrategyBasic.h"
-#include "../utils/includes/boost.h"
+
+#include <boost/program_options/options_description.hpp>
+#include <boost/program_options/variables_map.hpp>
+#include <boost/program_options/parsers.hpp>
+#include <boost/program_options/cmdline.hpp>
+
 
 //Exemplo de estratégia
 class StrategyTest : public ModelStrategy{

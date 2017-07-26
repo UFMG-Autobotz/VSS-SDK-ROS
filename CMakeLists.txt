@@ -222,6 +222,21 @@ include_directories(
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp src/Interface/interface.cpp)
-target_link_libraries(viewer ${catkin_LIBRARIES})
-add_dependencies(viewer beginner_tutorials_generate_messages_cpp)
+# add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp src/Interface/interface.cpp)
+# target_link_libraries(viewer ${catkin_LIBRARIES})
+# add_dependencies(viewer beginner_tutorials_generate_messages_cpp)
+
+# simulator
+add_executable(simulator_Main src/Simulator/main.cpp)
+
+add_library(Simulator src/Simulator/Simulator.cpp)
+target_link_libraries(simulator_Main simulator)
+
+add_library(ModelStrategy src/Simulator/strategies/ModelStrategy.cpp)
+target_link_libraries(simulator_Main ModelStrategy)
+
+add_library(Strategy src/Simulator/strategies/Strategy.cpp)
+target_link_libraries(simulator_Main Strategy)
+
+add_library(StrategyBasic src/Simulator/strategies/StrategyBasic.cpp)
+target_link_libraries(simulator_Main StrategyBasic)
