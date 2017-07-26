@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(vss_sdk)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -16,7 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -114,7 +114,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES vss_sdk
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -206,3 +206,13 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+##################
+# Add Executable #
+##################
+
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp)
+target_link_libraries(viewer ${catkin_LIBRARIES})
+add_dependencies(viewer beginner_tutorials_generate_messages_cpp)
