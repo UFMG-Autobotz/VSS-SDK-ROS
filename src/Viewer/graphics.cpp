@@ -40,7 +40,7 @@ GLUquadric* qobj;
 Graphics::Graphics(){
   //Inicializa ROS
   int c = 1;
-  char *v = "";
+  char *v = NULL;
   ros::init(c, &v, "viewer");
 
   //! Inicializa o time 1
@@ -254,7 +254,7 @@ void Graphics::state_thread(){
   interface.receive();
 
   //TODO dar ritmo para o loop
-  while(ros:ok()){
+  while(ros::ok()){
     //global_state.id();
 
     //! Atualiza a posição da bola
