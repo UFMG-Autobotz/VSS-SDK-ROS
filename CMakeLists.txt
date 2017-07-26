@@ -222,6 +222,6 @@ include_directories(
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp)
+add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp src/Interface/interface.cpp)
 target_link_libraries(viewer ${catkin_LIBRARIES})
 add_dependencies(viewer beginner_tutorials_generate_messages_cpp)
