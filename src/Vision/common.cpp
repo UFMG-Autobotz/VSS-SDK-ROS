@@ -139,7 +139,7 @@ namespace common{
     ball_s->pose.y = state.ball.y;
 
     ball_s->v_pose.x = state.v_ball.x;
-    ball_s->v_pose.y = state.v_ball.);
+    ball_s->v_pose.y = state.v_ball.y;
 
     ball_s->k_pose.x = state.ball_kalman.x;
     ball_s->k_pose.y = state.ball_kalman.y;
