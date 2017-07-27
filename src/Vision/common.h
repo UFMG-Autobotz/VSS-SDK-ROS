@@ -447,7 +447,7 @@ namespace common{
     //! Estimate angle between two straight lines in radian.
     double radian(Point, Point);
 
-    vss_state::Global_State State2Global_State(State, ExecConfiguration);
+    vss_sdk::Global_State State2Global_State(State, ExecConfiguration);
 }
 
 #endif
