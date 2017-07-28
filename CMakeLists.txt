@@ -18,6 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 find_package(Boost COMPONENTS program_options REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(Bullet REQUIRED)
 # find_package(Qt5 REQUIRED COMPONENTS QtCoreConfig QtGui)
 find_package(GLUT REQUIRED)
 # find_package(sqlite3 REQUIRED)
@@ -132,6 +133,7 @@ include_directories(
   ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
+  ${Bullet_INCLUDE_DIRS}
   # ${Qt5QtCore_DIR}
   ${GLUT_INCLUDE_DIRS}
   # ${SQLITE3_INCLUDE_DIRS}
@@ -240,6 +242,8 @@ target_link_libraries(Interface ${catkin_LIBRARIES})
 # simulator
 
 add_library(RobotPhysics src/Simulator/RobotPhysics.cpp)
+target_link_libraries(RobotPhysics ${Bullet_LIBRARIES})
+
 add_library(RobotStrategy src/Simulator/RobotStrategy.cpp)
 
 add_library(GLDebugDrawer src/Simulator/utils/GLDebugDrawer.cpp)
