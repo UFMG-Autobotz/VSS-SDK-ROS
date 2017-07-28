@@ -6,7 +6,7 @@ bool origin
 
 # Lista dinâmica de bolas. Esta parte é definida dinâmicamente, pois podem existir situações indesejadas onde mais de uma bola está presente no ambiente
 # REVIEW Mudei para apenas uma bola porque tanto o codigo do viewer quanto do simulator so enviavam uma bola
-s_Ball_State ball
+s_Ball_State[1] balls
 
 # Lista dinâmica de robôs amarelos. Em geral sempre são enviados 3 robôs.
 s_Robot_State[3] robots_yellow

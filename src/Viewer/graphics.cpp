@@ -295,12 +295,12 @@ void Graphics::state_thread(){
     }
 
     //! Se a estratégia possui um nome, atualiza o nome do amarelo
-    if(global_state.name_yellow){
+    if(global_state.name_yellow.size() != 0){
       static_name_team_1 = global_state.name_yellow;
     }
 
     //! Se a estratégia possui um nome, atualiza o nome do azul
-    if(global_state.name_blue){
+    if(global_state.name_blue.size() != 0){
       static_name_team_2 = global_state.name_blue;
     }
   }

@@ -58,9 +58,9 @@ add_message_files(
    c_Robot_Command.msg
    d_Path.msg
    d_Pose.msg
-   global_commands.msg
-   global_debug.msg
-   global_state.msg
+   Global_Commands.msg
+   Global_Debug.msg
+   Global_State.msg
    s_Ball_State.msg
    s_Pose.msg
    s_RGB.msg
@@ -225,7 +225,7 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 # Viewer
 add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp src/Interface/interface.cpp)
 target_link_libraries(viewer ${catkin_LIBRARIES})
-# add_dependencies(viewer beginner_tutorials_generate_messages_cpp)
+add_dependencies(viewer vss_sdk_generate_messages_cpp)
 
 # Simulator
 #add_executable(simulator_Main src/Simulator/main.cpp)
