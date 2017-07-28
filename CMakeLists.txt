@@ -224,7 +224,7 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 
 # Viewer
 add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp src/Interface/interface.cpp)
-target_link_libraries(viewer ${catkin_LIBRARIES})
+target_link_libraries(viewer ${catkin_LIBRARIES} ${GLUT_INCLUDE_LIBRARY})
 add_dependencies(viewer vss_sdk_generate_messages_cpp)
 
 # Simulator
