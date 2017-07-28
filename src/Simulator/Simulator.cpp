@@ -132,7 +132,7 @@ void Simulator::runReceiveTeam1(){
       commands.at(i) = Command((float)global_commands_team_1.robot_commands[i].left_vel+0.001, (float)global_commands_team_1.robot_commands[i].right_vel+0.001);
     }
 
-    if(global_commands_team_1.has_name()){
+    if(global_commands_team_1.name.length()) {
       name_team_1 = global_commands_team_1.name;
       has_new_name_team_1 = true;
     }
@@ -153,13 +153,13 @@ void Simulator::runReceiveTeam2(){
       cout << "---Time azul conectado---" << endl;
     }
 
-    situation_team2 = global_commands_team_2.situation();
-    for(int i = 0 ; i < global_commands_team_2.robot_commands_size() ; i++){
-      commands.at(i+3) = Command((float)global_commands_team_2.robot_commands(i).left_vel()+0.001, (float)global_commands_team_2.robot_commands(i).right_vel()+0.001);
+    situation_team2 = global_commands_team_2.situation;
+    for(int i = 0 ; i < global_commands_team_2.robot_commands.size() ; i++){
+      commands.at(i+3) = Command((float)global_commands_team_2.robot_commands[i].left_vel+0.001, (float)global_commands_team_2.robot_commands[i].right_vel+0.001);
     }
 
-    if(global_commands_team_2.has_name()){
-      name_team_2 = global_commands_team_2.name();
+    if(global_commands_team_2.name.length()) {
+      name_team_2 = global_commands_team_2.name;
       has_new_name_team_2 = true;
     }
   }
@@ -191,17 +191,17 @@ void Simulator::runSender(Interface<vss_sdk::Global_State> *interface){
   }
 
   vss_sdk::s_Ball_State *ball_s;
-  ball_s.pose.x = physics->getBallPosition().getX();
-  ball_s.pose.y = physics->getBallPosition().getZ();
+  ball_s->pose.x = physics->getBallPosition().getX();
+  ball_s->pose.y = physics->getBallPosition().getZ();
 
-  ball_s.v_pose.x = physics->getBallVelocity().getX();
-  ball_s.v_pose.y = physics->getBallVelocity().getZ();
+  ball_s->v_pose.x = physics->getBallVelocity().getX();
+  ball_s->v_pose.y = physics->getBallVelocity().getZ();
 
-  ball_s.k_pose.x = 0;
-  ball_s.k_pose.y = 0;
+  ball_s->k_pose.x = 0;
+  ball_s->k_pose.y = 0;
 
-  ball_s.k_v_pose.x = 0;
-  ball_s.k_v_pose.y = 0;
+  ball_s->k_v_pose.x = 0;
+  ball_s->k_v_pose.y = 0;
 
   global_state.ball = ball_s;
 
@@ -216,17 +216,17 @@ void Simulator::runSender(Interface<vss_sdk::Global_State> *interface){
     float rads = atan2(getRobotOrientation(listRobots.at(i+3)).getZ(),getRobotOrientation(listRobots.at(i+3)).getX());
     robot_s.pose.yaw = rads;
 
-    robot_s.v_pos.x = velRobot.getX();
-    robot_s.v_pos.y = velRobot.getZ();
-    robot_s.v_pos.yaw = 0;
+    robot_s.v_pose.x = velRobot.getX();
+    robot_s.v_pose.y = velRobot.getZ();
+    robot_s.v_pose.yaw = 0;
 
-    robot_s.k_pos.x = 0;
-    robot_s.k_pos.y = 0;
-    robot_s.k_pos.yaw = 0;
+    robot_s.k_pose.x = 0;
+    robot_s.k_pose.y = 0;
+    robot_s.k_pose.yaw = 0;
 
-    robot_s.k_v_pos.x = 0;
-    robot_s.k_v_pos.y = 0;
-    robot_s.k_v_pos.yaw = 0;
+    robot_s.k_v_pose.x = 0;
+    robot_s.k_v_pose.y = 0;
+    robot_s.k_v_pose.yaw = 0;
 
     global_state.robots_blue[i] = robot_s;
   }

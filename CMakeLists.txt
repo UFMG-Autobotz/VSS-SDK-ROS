@@ -18,10 +18,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(OpenCV REQUIRED)
-find_package(Qt5 REQUIRED COMPONENTS QtCore QtGui)
+# find_package(Qt5 REQUIRED COMPONENTS QtCoreConfig QtGui)
 find_package(GLUT REQUIRED)
 find_package(Bullet REQUIRED)
-find_package(sqlite3 REQUIRED)
+# find_package(sqlite3 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -132,10 +132,10 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
-  ${Qt5Widgets_INCLUDE_DIRS}
+  # ${Qt5QtCore_DIR}
   ${GLUT_INCLUDE_DIRS}
   ${BULLET_INCLUDE_DIR}
-  ${SQLITE3_INCLUDE_DIRS}
+  # ${SQLITE3_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -222,6 +222,21 @@ include_directories(
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp src/Interface/interface.cpp)
-target_link_libraries(viewer ${catkin_LIBRARIES})
-add_dependencies(viewer beginner_tutorials_generate_messages_cpp)
+# add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp src/Interface/interface.cpp)
+# target_link_libraries(viewer ${catkin_LIBRARIES})
+# add_dependencies(viewer beginner_tutorials_generate_messages_cpp)
+
+# simulator
+add_executable(simulator_Main src/Simulator/main.cpp)
+
+add_library(Simulator src/Simulator/Simulator.cpp)
+target_link_libraries(simulator_Main simulator)
+
+add_library(ModelStrategy src/Simulator/strategies/ModelStrategy.cpp)
+target_link_libraries(simulator_Main ModelStrategy)
+
+add_library(Strategy src/Simulator/strategies/Strategy.cpp)
+target_link_libraries(simulator_Main Strategy)
+
+add_library(StrategyBasic src/Simulator/strategies/StrategyBasic.cpp)
+target_link_libraries(simulator_Main StrategyBasic)

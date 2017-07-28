@@ -4,16 +4,16 @@
 # tangencial e angular estimados pelo Filtro de Kalman.
 
 # Posição e Orientação de um robô. Sendo somente esse o valor OBRIGATÓRIO, pois os outros estão sendo implementados ainda.
-s_Pose[] pose
+s_Pose pose
 
 # Velocidade linear, tangencial e angular de um robô
-s_Pose[] v_pose
+s_Pose v_pose
 
 # Posição e Orientação de um robô estimados pelo filtro de kalman
-s_Pose[] k_pose
+s_Pose k_pose
 
 # Velocidade linear, tangencial e angular estimados pelo filtro de kalman
-s_Pose[] k_v_pose
+s_Pose k_v_pose
 
-# Cor da etiqueta secundária de um robô (Somente VSS-Vision)	
+# Cor da etiqueta secundária de um robô (Somente VSS-Vision)
 s_RGB color
