@@ -18,12 +18,8 @@ copies or substantial portions of the Software.
 
 //Classes from lib
 
- #include "utils/Constants.h"
-#include <bullet/LinearMath/btVector3.h>
-//#include "LinearMath/btStraight.h"
-//#include <bullet/LinearMath/btStraight.h>
-#include "bullet/LinearMath/btStraight.h"
-#include <btBulletDynamicsCommon.h>
+#include "Constants.h"
+#include "btBulletDynamicsCommon.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>

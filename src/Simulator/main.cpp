@@ -19,88 +19,88 @@ copies or substantial portions of the Software.
 #include "strategies/Strategy.h"
 #include "strategies/StrategyBasic.h"
 
-#include <boost/program_options/options_description.hpp>
-#include <boost/program_options/variables_map.hpp>
-#include <boost/program_options/parsers.hpp>
-#include <boost/program_options/cmdline.hpp>
-
+// #include <boost/program_options/options_description.hpp>
+// #include <boost/program_options/variables_map.hpp>
+// #include <boost/program_options/parsers.hpp>
+// #include <boost/program_options/cmdline.hpp>
+#include "includes/boost.h"
 
 //Exemplo de estratégia
 class StrategyTest : public ModelStrategy{
 public:
-    void runStrategy(vector<RobotStrategy*> robotStrategiesTeam,vector<RobotStrategy*> robotStrategiesAdv,btVector3 ballPos){
-        this->robotStrategiesTeam = robotStrategiesTeam;
-        this->robotStrategiesAdv = robotStrategiesAdv;
-        this->ballPos = ballPos;
+  void runStrategy(vector<RobotStrategy*> robotStrategiesTeam,vector<RobotStrategy*> robotStrategiesAdv,btVector3 ballPos){
+    this->robotStrategiesTeam = robotStrategiesTeam;
+    this->robotStrategiesAdv = robotStrategiesAdv;
+    this->ballPos = ballPos;
 
-        ModelStrategy::runStrategy();
+    ModelStrategy::runStrategy();
 
-        for(int i = 0; i < robotStrategiesTeam.size(); i++){
-            float leftWheel, rigthWheel;
-            leftWheel = 0;
-            rigthWheel = 0;
-            robotStrategiesTeam[i]->updateCommand(leftWheel,rigthWheel);
-        }
+    for(int i = 0; i < robotStrategiesTeam.size(); i++){
+      float leftWheel, rigthWheel;
+      leftWheel = 0;
+      rigthWheel = 0;
+      robotStrategiesTeam[i]->updateCommand(leftWheel,rigthWheel);
     }
+  }
 };
 
 bool argParse(int argc, char** argv, bool *fast_travel, int *qtd_of_goals, bool *develop_mode);
 
 int main(int argc, char *argv[]){
-    bool fast_travel = false;
-    int qtd_of_goals = 10;
-    bool develop_mode = false;
+  bool fast_travel = false;
+  int qtd_of_goals = 10;
+  bool develop_mode = false;
 
-    if(argParse(argc, argv, &fast_travel, &qtd_of_goals, &develop_mode)){
-        Strategy *stratYellowTeam = new Strategy(); //Original strategy
-        Strategy *stratBlueTeam = new Strategy(); //Strategy for tests
+  if(argParse(argc, argv, &fast_travel, &qtd_of_goals, &develop_mode)){
+    Strategy *stratYellowTeam = new Strategy(); //Original strategy
+    Strategy *stratBlueTeam = new Strategy(); //Strategy for tests
 
-        Simulator* simulator = new Simulator();
-        simulator->runSimulator(argc, argv, stratBlueTeam, stratYellowTeam, fast_travel, qtd_of_goals, develop_mode);
-    }else{
-        return -1;
-    }
+    Simulator* simulator = new Simulator();
+    simulator->runSimulator(argc, argv, stratBlueTeam, stratYellowTeam, fast_travel, qtd_of_goals, develop_mode);
+  }else{
+    return -1;
+  }
 
-	return 0;
+  return 0;
 }
 
 bool argParse(int argc, char** argv, bool *fast_travel, int *qtd_of_goals, bool *develop_mode){
-    namespace bpo = boost::program_options;
+  namespace bpo = boost::program_options;
 
-    // Declare the supported options.
-    bpo::options_description desc("Allowed options");
-    desc.add_options()
-        ("help,h", "(Optional) produce help message")
-        ("fast,f", "(Optional) specify if the time must go 15x faster.")
-        ("develop,d", "(Optional) turn on the develop mode. the time doesn't count.")
-        ("qtd_of_goals,g", bpo::value<std::string>()->default_value("10"), "(Optional) specify the qtd of goals to end the game. 10 to 100");
-    bpo::variables_map vm;
-    bpo::store(bpo::parse_command_line(argc, argv, desc), vm);
-    bpo::notify(vm);
+  // Declare the supported options.
+  bpo::options_description desc("Allowed options");
+  desc.add_options()
+  ("help,h", "(Optional) produce help message")
+  ("fast,f", "(Optional) specify if the time must go 15x faster.")
+  ("develop,d", "(Optional) turn on the develop mode. the time doesn't count.")
+  ("qtd_of_goals,g", bpo::value<std::string>()->default_value("10"), "(Optional) specify the qtd of goals to end the game. 10 to 100");
+  bpo::variables_map vm;
+  bpo::store(bpo::parse_command_line(argc, argv, desc), vm);
+  bpo::notify(vm);
 
-    if (vm.count("help")){
-        std::cout << desc << std::endl;
-        return false;
-    }
+  if (vm.count("help")){
+    std::cout << desc << std::endl;
+    return false;
+  }
 
-    if (vm.count("fast")){
-        *fast_travel = true;
-    }
+  if (vm.count("fast")){
+    *fast_travel = true;
+  }
 
-    if (vm.count("develop")){
-        *develop_mode = true;
-    }
+  if (vm.count("develop")){
+    *develop_mode = true;
+  }
 
-    stringstream ss;
-    ss << vm["qtd_of_goals"].as<string>();
-    ss >> *qtd_of_goals;
+  stringstream ss;
+  ss << vm["qtd_of_goals"].as<string>();
+  ss >> *qtd_of_goals;
 
-    if(*qtd_of_goals < 10){
-        *qtd_of_goals = 10;
-    }else
-    if(*qtd_of_goals > 100){
-        *qtd_of_goals = 100;
-    }
+  if(*qtd_of_goals < 10){
+    *qtd_of_goals = 10;
+  }else
+  if(*qtd_of_goals > 100){
+    *qtd_of_goals = 100;
+  }
 
-    return true;
+  return true;
 }
