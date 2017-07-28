@@ -58,9 +58,9 @@ add_message_files(
    c_Robot_Command.msg
    d_Path.msg
    d_Pose.msg
-   Global_Commands.msg
-   Global_Debug.msg
-   Global_State.msg
+   global_commands.msg
+   global_debug.msg
+   global_state.msg
    s_Ball_State.msg
    s_Pose.msg
    s_RGB.msg
@@ -222,21 +222,22 @@ include_directories(
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-# add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp src/Interface/interface.cpp)
-# target_link_libraries(viewer ${catkin_LIBRARIES})
+# Viewer
+add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp src/Interface/interface.cpp)
+target_link_libraries(viewer ${catkin_LIBRARIES})
 # add_dependencies(viewer beginner_tutorials_generate_messages_cpp)
 
-# simulator
-add_executable(simulator_Main src/Simulator/main.cpp)
+# Simulator
+#add_executable(simulator_Main src/Simulator/main.cpp)
 
-add_library(Simulator src/Simulator/Simulator.cpp)
-target_link_libraries(simulator_Main simulator)
+#add_library(Simulator src/Simulator/Simulator.cpp)
+#target_link_libraries(simulator_Main simulator)
 
-add_library(ModelStrategy src/Simulator/strategies/ModelStrategy.cpp)
-target_link_libraries(simulator_Main ModelStrategy)
+#add_library(ModelStrategy src/Simulator/strategies/ModelStrategy.cpp)
+#target_link_libraries(simulator_Main ModelStrategy)
 
-add_library(Strategy src/Simulator/strategies/Strategy.cpp)
-target_link_libraries(simulator_Main Strategy)
+#add_library(Strategy src/Simulator/strategies/Strategy.cpp)
+#target_link_libraries(simulator_Main Strategy)
 
-add_library(StrategyBasic src/Simulator/strategies/StrategyBasic.cpp)
-target_link_libraries(simulator_Main StrategyBasic)
+#add_library(StrategyBasic src/Simulator/strategies/StrategyBasic.cpp)
+#target_link_libraries(simulator_Main StrategyBasic)
