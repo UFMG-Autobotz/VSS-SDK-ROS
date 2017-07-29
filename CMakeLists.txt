@@ -16,9 +16,10 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## System dependencies are found with CMake's conventions
-find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost COMPONENTS program_options REQUIRED)
 find_package(OpenCV REQUIRED)
 # find_package(Qt5 REQUIRED COMPONENTS QtCoreConfig QtGui)
+find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 find_package(Bullet REQUIRED)
 # find_package(sqlite3 REQUIRED)
@@ -133,6 +134,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
   # ${Qt5QtCore_DIR}
+  ${OPENGL_INCLUDE_DIRS}
   ${GLUT_INCLUDE_DIRS}
   ${BULLET_INCLUDE_DIR}
   # ${SQLITE3_INCLUDE_DIRS}
@@ -220,12 +222,23 @@ include_directories(
 # Add Executable #
 ##################
 
-include_directories(include ${catkin_INCLUDE_DIRS})
+# include_directories(include ${catkin_INCLUDE_DIRS})
+
+#interface
+
+add_library(Interface src/Interface/interface.cpp)
+target_link_libraries(Interface ${catkin_LIBRARIES})
 
 # Viewer
-add_executable(viewer src/Viewer/main.cpp src/Viewer/graphics.cpp src/Interface/interface.cpp)
-target_link_libraries(viewer ${catkin_LIBRARIES} ${GLUT_INCLUDE_LIBRARY})
-add_dependencies(viewer vss_sdk_generate_messages_cpp)
+
+add_library(Graphics src/Viewer/graphics.cpp)
+target_link_libraries(Graphics ${OPENGL_LIBRARIES})
+target_link_libraries(Graphics ${GLUT_LIBRARIES})
+
+add_executable(Viewer src/Viewer/main.cpp)
+target_link_libraries(Viewer ${catkin_LIBRARIES})
+target_link_libraries(Viewer ${Boost_LIBRARIES})
+target_link_libraries(Viewer Graphics)
 
 # Simulator
 #add_executable(simulator_Main src/Simulator/main.cpp)
