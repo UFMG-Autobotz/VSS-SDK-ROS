@@ -20,6 +20,7 @@ find_package(Boost COMPONENTS program_options REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Bullet REQUIRED)
 # find_package(Qt5 REQUIRED COMPONENTS QtCoreConfig QtGui)
+find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 # find_package(sqlite3 REQUIRED)
 
@@ -129,12 +130,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+ include
   ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
   ${Bullet_INCLUDE_DIRS}
   # ${Qt5QtCore_DIR}
+  ${OPENGL_INCLUDE_DIRS}
   ${GLUT_INCLUDE_DIRS}
   # ${SQLITE3_INCLUDE_DIRS}
   src/Interface
@@ -247,10 +249,11 @@ target_link_libraries(RobotPhysics ${Bullet_LIBRARIES})
 add_library(RobotStrategy src/Simulator/RobotStrategy.cpp)
 
 add_library(GLDebugDrawer src/Simulator/utils/GLDebugDrawer.cpp)
+target_link_libraries(GLDebugDrawer ${OPENGL_LIBRARIES})
 target_link_libraries(GLDebugDrawer ${GLUT_LIBRARIES})
 
 add_library(ModelStrategy src/Simulator/strategies/ModelStrategy.cpp)
-target_link_libraries(ModelStratgegy RobotStrategy)
+target_link_libraries(ModelStrategy RobotStrategy)
 
 add_library(Strategy src/Simulator/strategies/Strategy.cpp)
 target_link_libraries(Strategy ModelStrategy)
