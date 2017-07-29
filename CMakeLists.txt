@@ -250,7 +250,7 @@ add_library(GLDebugDrawer src/Simulator/utils/GLDebugDrawer.cpp)
 target_link_libraries(GLDebugDrawer ${GLUT_LIBRARIES})
 
 add_library(ModelStrategy src/Simulator/strategies/ModelStrategy.cpp)
-target_link_libraries(ModelStrategy RobotStrategy)
+target_link_libraries(ModelStratgegy RobotStrategy)
 
 add_library(Strategy src/Simulator/strategies/Strategy.cpp)
 target_link_libraries(Strategy ModelStrategy)
