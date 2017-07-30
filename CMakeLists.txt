@@ -228,17 +228,19 @@ include_directories(
 
 add_library(Interface src/Interface/interface.cpp)
 target_link_libraries(Interface ${catkin_LIBRARIES})
+add_dependencies(Interface ${PROJECT_NAME}_generate_messages_cpp)
 
 # Viewer
 
 add_library(Graphics src/Viewer/graphics.cpp)
 target_link_libraries(Graphics ${OPENGL_LIBRARIES})
 target_link_libraries(Graphics ${GLUT_LIBRARIES})
+add_dependencies(Graphics ${PROJECT_NAME}_generate_messages_cpp)
 
-add_executable(Viewer src/Viewer/main.cpp)
-target_link_libraries(Viewer ${catkin_LIBRARIES})
-target_link_libraries(Viewer ${Boost_LIBRARIES})
-target_link_libraries(Viewer Graphics)
+add_executable(viewer src/Viewer/main.cpp)
+target_link_libraries(viewer ${catkin_LIBRARIES})
+target_link_libraries(viewer ${Boost_LIBRARIES})
+target_link_libraries(viewer Graphics)
 
 # Simulator
 #add_executable(simulator_Main src/Simulator/main.cpp)
