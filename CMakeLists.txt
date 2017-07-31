@@ -21,7 +21,7 @@ find_package(OpenCV REQUIRED)
 # find_package(Qt5 REQUIRED COMPONENTS QtCoreConfig QtGui)
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
-find_package(Bullet REQUIRED)
+# find_package(Bullet REQUIRED)
 # find_package(sqlite3 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -233,6 +233,7 @@ add_dependencies(Interface ${PROJECT_NAME}_generate_messages_cpp)
 # Viewer
 
 add_library(Graphics src/Viewer/graphics.cpp)
+target_link_libraries(Graphics ${catkin_LIBRARIES})
 target_link_libraries(Graphics ${OPENGL_LIBRARIES})
 target_link_libraries(Graphics ${GLUT_LIBRARIES})
 add_dependencies(Graphics ${PROJECT_NAME}_generate_messages_cpp)
