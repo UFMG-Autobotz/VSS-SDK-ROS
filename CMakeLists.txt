@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(vss_sdk)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
@@ -12,8 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   message_generation
-  message_runtime
-)
+  message_runtime)
 
 ## System dependencies are found with CMake's conventions
 find_package(Boost COMPONENTS program_options REQUIRED)
@@ -22,7 +23,7 @@ find_package(OpenCV REQUIRED)
 # find_package(Qt5 REQUIRED COMPONENTS QtCoreConfig QtGui)
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
-# find_package(sqlite3 REQUIRED)
+find_package(sqlite3 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -138,7 +139,7 @@ include_directories(
   # ${Qt5QtCore_DIR}
   ${OPENGL_INCLUDE_DIRS}
   ${GLUT_INCLUDE_DIRS}
-  # ${SQLITE3_INCLUDE_DIRS}
+  ${SQLITE3_INCLUDE_DIRS}
   src/Interface
   src/Simulator
   src/Simulator/bullet
@@ -240,6 +241,16 @@ include_directories(
 
 add_library(Interface src/Interface/interface.cpp)
 target_link_libraries(Interface ${catkin_LIBRARIES})
+
+#vision
+add_executable(Vision src/Vision/main.cpp)
+add_executable(Vision src/Vision/mainwindow.cpp)
+target_link_libraries (Vision ${SQLITE3_LIBRARIES})
+target_link_libraries (Vision ${catkin_LIBRARIES})
+target_link_libraries (Vision ${OpenCV_LIBRARIES})
+
+
+
 
 # simulator
 
