@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8.3)
 project(vss_sdk)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-set(CMAKE_BUILD_TYPE RELEASE)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -18,14 +17,14 @@ find_package(catkin REQUIRED COMPONENTS
   message_runtime)
 
 ## System dependencies are found with CMake's conventions
-find_package(Boost COMPONENTS program_options REQUIRED)
+#find_package(Boost COMPONENTS program_options REQUIRED)
 find_package(OpenCV REQUIRED)
 # find_package(Bullet REQUIRED)
 # find_package(Qt5 REQUIRED COMPONENTS QtCoreConfig QtGui)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
+#find_package(GLUT REQUIRED)
 find_package(sqlite3 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -135,19 +134,19 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
  include
-  ${Boost_INCLUDE_DIRS}
+ # ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
   # ${Bullet_INCLUDE_DIRS}
   #${Qt5QtCore_DIR}
   ${Qt5Widgets_INCLUDE_DIRS}
   ${OPENGL_INCLUDE_DIRS}
-  ${GLUT_INCLUDE_DIRS}
+ # ${GLUT_INCLUDE_DIRS}
   ${SQLITE3_INCLUDE_DIRS}
-  src/Interface
-  src/Simulator
-  src/Simulator/bullet
-  src/Simulator/utils
+#  src/Interface
+#  src/Simulator
+ # src/Simulator/bullet
+ # src/Simulator/utils
 )
 
 
@@ -247,56 +246,9 @@ add_library(Interface src/Interface/interface.cpp)
 target_link_libraries(Interface ${catkin_LIBRARIES})
 
 #vision
-add_executable(Vision src/Vision/main.cpp)
-add_executable(Vision src/Vision/mainwindow.cpp)
+add_executable(Vision src/Vision/main.cpp src/Vision/mainwindow.cpp)
 target_link_libraries (Vision ${SQLITE3_LIBRARIES})
 target_link_libraries (Vision ${catkin_LIBRARIES})
 target_link_libraries (Vision ${OpenCV_LIBRARIES})
 target_link_libraries(Vision ${catkin_LIBRARIES} Qt5::Widgets)
 
-
-# simulator
-
-#add_library(RobotPhysics src/Simulator/RobotPhysics.cpp)
-# target_link_libraries(RobotPhysics ${Bullet_LIBRARIES})
-
-#add_library(RobotStrategy src/Simulator/RobotStrategy.cpp)
-
-#add_library(GLDebugDrawer src/Simulator/utils/GLDebugDrawer.cpp)
-#target_link_libraries(GLDebugDrawer ${OPENGL_LIBRARIES})
-#target_link_libraries(GLDebugDrawer ${GLUT_LIBRARIES})
-
-#add_library(ModelStrategy src/Simulator/strategies/ModelStrategy.cpp)
-#target_link_libraries(ModelStrategy RobotStrategy)
-
-#add_library(Strategy src/Simulator/strategies/Strategy.cpp)
-#target_link_libraries(Strategy ModelStrategy)
-
-#add_library(StrategyBasic src/Simulator/strategies/StrategyBasic.cpp)
-#target_link_libraries(StrategyBasic ModelStrategy)
-
-#add_library(Physics src/Simulator/Physics.cpp)
-#target_link_libraries(Physics RobotStrategy)
-#target_link_libraries(Physics GLDebugDrawer)
-#target_link_libraries(Physics RobotPhysics)
-
-#add_library(Arbiter src/Simulator/Arbiter.cpp)
-#target_link_libraries(Arbiter Physics)
-
-#add_library(Simulator src/Simulator/Simulator.cpp)
-#target_link_libraries(Simulator ${catkin_LIBRARIES})
-#target_link_libraries(Simulator Physics)
-#target_link_libraries(Simulator RobotStrategy)
-#target_link_libraries(Simulator RobotPhysics)
-#target_link_libraries(Simulator Strategy)
-#target_link_libraries(Simulator ModelStrategy)
-#target_link_libraries(Simulator Interface)
-#target_link_libraries(Simulator Arbiter)
-
-#add_executable(simulator_Main src/Simulator/main.cpp)
-#target_link_libraries(simulator_Main ${Boost_LIBRARIES})
-#target_link_libraries(simulator_Main ${catkin_LIBRARIES})
-#target_link_libraries(simulator_Main Simulator)
-#target_link_libraries(simulator_Main ModelStrategy)
-#target_link_libraries(simulator_Main Strategy)
-#target_link_libraries(simulator_Main StrategyBasic)
