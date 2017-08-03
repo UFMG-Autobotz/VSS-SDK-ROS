@@ -145,6 +145,19 @@ include_directories(
   src/Simulator/utils
 )
 
+add_subdirectory(
+  src/Simulator/bullet/BulletCollision
+)
+
+add_subdirectory(
+  src/Simulator/bullet/BulletDynamics
+)
+
+add_subdirectory(
+  src/Simulator/bullet/LinearMath
+)
+
+
 
 # link_directories(${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE})
 
@@ -240,10 +253,14 @@ include_directories(
 
 add_library(Interface src/Interface/interface.cpp)
 target_link_libraries(Interface ${catkin_LIBRARIES})
+add_dependencies(Interface ${PROJECT_NAME}_generate_messages_cpp)
 
 # simulator
 
 add_library(RobotPhysics src/Simulator/RobotPhysics.cpp)
+target_link_libraries(RobotPhysics BulletCollision)
+target_link_libraries(RobotPhysics BulletDynamics)
+target_link_libraries(RobotPhysics LinearMath)
 # target_link_libraries(RobotPhysics ${Bullet_LIBRARIES})
 
 add_library(RobotStrategy src/Simulator/RobotStrategy.cpp)
@@ -269,20 +286,21 @@ target_link_libraries(Physics RobotPhysics)
 add_library(Arbiter src/Simulator/Arbiter.cpp)
 target_link_libraries(Arbiter Physics)
 
-add_library(Simulator src/Simulator/Simulator.cpp)
-target_link_libraries(Simulator ${catkin_LIBRARIES})
-target_link_libraries(Simulator Physics)
-target_link_libraries(Simulator RobotStrategy)
-target_link_libraries(Simulator RobotPhysics)
-target_link_libraries(Simulator Strategy)
-target_link_libraries(Simulator ModelStrategy)
-target_link_libraries(Simulator Interface)
-target_link_libraries(Simulator Arbiter)
+add_library(Simulator_lib src/Simulator/Simulator.cpp)
+target_link_libraries(Simulator_lib ${catkin_LIBRARIES})
+target_link_libraries(Simulator_lib Physics)
+target_link_libraries(Simulator_lib RobotStrategy)
+target_link_libraries(Simulator_lib RobotPhysics)
+target_link_libraries(Simulator_lib Strategy)
+target_link_libraries(Simulator_lib ModelStrategy)
+target_link_libraries(Simulator_lib Interface)
+target_link_libraries(Simulator_lib Arbiter)
+add_dependencies(Simulator_lib ${PROJECT_NAME}_generate_messages_cpp)
 
-add_executable(simulator_Main src/Simulator/main.cpp)
-target_link_libraries(simulator_Main ${Boost_LIBRARIES})
-target_link_libraries(simulator_Main ${catkin_LIBRARIES})
-target_link_libraries(simulator_Main Simulator)
-target_link_libraries(simulator_Main ModelStrategy)
-target_link_libraries(simulator_Main Strategy)
-target_link_libraries(simulator_Main StrategyBasic)
+add_executable(Simulator src/Simulator/main.cpp)
+target_link_libraries(Simulator ${Boost_LIBRARIES})
+target_link_libraries(Simulator ${catkin_LIBRARIES})
+target_link_libraries(Simulator Simulator_lib)
+target_link_libraries(Simulator ModelStrategy)
+target_link_libraries(Simulator Strategy)
+target_link_libraries(Simulator StrategyBasic)
