@@ -33,25 +33,25 @@ void Sample::init_sample(string main_color, bool is_debug, bool real_environment
 		}
 
 	}else{
-		interface_send.createSendCommandsTeam2(&global_commands, "commandsBlue");
+		interface_send.createSend(&global_commands, "commandsBlue");
 
 		if(is_debug) {
-			interface_debug.createSendDebugTeam2(&global_debug, "debugBlue");
+			interface_debug.createSend(&global_debug, "debugBlue");
 		}
 	}
 }
 
 void Sample::receive_state(){
-	interface_receive.receive();
+	interface.receive();
 	state = common::Global_State2State(global_state, main_color);
-	situation = global_state.situation();
+	situation = global_state.situation;
 }
 
 void Sample::send_commands() {
 	global_commands.situation = NONE;
 
 	if(flag_init == 0) {
-		global_commands.name name;
+		global_commands.name = name;
 		flag_init = 1;
 	}
 

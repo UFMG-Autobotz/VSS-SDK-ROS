@@ -243,6 +243,26 @@ target_link_libraries(viewer ${catkin_LIBRARIES})
 target_link_libraries(viewer ${Boost_LIBRARIES})
 target_link_libraries(viewer Graphics)
 
+# Sample
+
+add_library(Common src/Sample/common.cpp)
+target_link_libraries(Common ${catkin_LIBRARIES})
+add_dependencies(Common ${PROJECT_NAME}_generate_messages_cpp)
+
+add_library(Sample_lib src/Sample/sample.cpp)
+target_link_libraries(Sample_lib ${catkin_LIBRARIES})
+add_dependencies(Sample_lib ${PROJECT_NAME}_generate_messages_cpp)
+
+add_library(Strategy_sample src/Sample/strategy.cpp)
+target_link_libraries(Strategy_sample Sample_lib)
+target_link_libraries(Strategy_sample Common)
+
+add_executable(Sample src/Sample/main.cpp)
+target_link_libraries(Sample Common)
+target_link_libraries(Sample ${Boost_LIBRARIES})
+target_link_libraries(Sample Strategy_sample)
+target_link_libraries(Sample ${catkin_LIBRARIES})
+
 # Simulator
 #add_executable(simulator_Main src/Simulator/main.cpp)
 
