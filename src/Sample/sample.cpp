@@ -47,62 +47,65 @@ void Sample::receive_state(){
 	situation = global_state.situation();
 }
 
-void Sample::send_commands(){
-	global_commands = vss_command::Global_Commands();
-	global_commands.set_situation(NONE);
+void Sample::send_commands() {
+	global_commands.situation = NONE;
 
 	if(flag_init == 0) {
-		global_commands.set_name(name);
+		global_commands.name name;
 		flag_init = 1;
 	}
 
 	if(main_color == "yellow") {
-		global_commands.set_is_team_yellow(true);
+		global_commands.is_team_yellow = true;
 	}else{
-		global_commands.set_is_team_yellow(false);
+		global_commands.is_team_yellow = false;
 	}
 
 	for(int i = 0; i < 3; i++) {
-		vss_command::Robot_Command *robot = global_commands.add_robot_commands();
-		robot->set_id(i);
-		robot->set_left_vel(commands[i].left);
-		robot->set_right_vel(commands[i].right);
+    vss_sdk::c_Robot_Command robot;
+		robot.id = i;
+		robot.left_vel = commands[i].left;
+		robot.right_vel = commands[i].right;
+    global_commands.robot_commands[i] = robot;
 	}
 
 	interface_send.send();
 }
 
-void Sample::send_debug(){
-	global_debug = vss_debug::Global_Debug();
+void Sample::send_debug() {
 
 	// Add step pose, if exists
-	for(int i = 0; i < 3; i++) {
-		vss_debug::Pose *steps = global_debug.add_step_poses();
-		steps->set_id(i);
-		steps->set_x(debug.robots_step_pose[i].x);
-		steps->set_y(debug.robots_step_pose[i].y);
-		steps->set_yaw(debug.robots_step_pose[i].z);
+	for (int i = 0; i < 3; i++) {
+    vss_sdk::d_Pose steps;
+		steps.id = i;
+		steps.x = debug.robots_step_pose[i].x;
+		steps.y = debug.robots_step_pose[i].y;
+		steps.yaw = debug.robots_step_pose[i].z;
+    global_debug.step_poses[i] = steps;
 	}
 
 	// Add final pose, if exists
-	for(int i = 0; i < 3; i++) {
-		vss_debug::Pose *finals = global_debug.add_final_poses();
-		finals->set_id(i);
-		finals->set_x(debug.robots_final_pose[i].x);
-		finals->set_y(debug.robots_final_pose[i].y);
-		finals->set_yaw(debug.robots_final_pose[i].z);
+	for (int i = 0; i < 3; i++) {
+    vss_sdk::d_Pose finals;
+		finals.id = i;
+		finals.x = debug.robots_final_pose[i].x;
+		finals.y = debug.robots_final_pose[i].y;
+		finals.yaw = debug.robots_final_pose[i].z;
+    global_debug.final_poses[i] = finals;
 	}
 
 	for(int i = 0; i < 3; i++) {
-		vss_debug::Path *paths = global_debug.add_paths();
-		paths->set_id(i);
+    vss_sdk::d_Path paths;
+		paths.id = i;
 		for(int j = 0; j < debug.robots_path[i].poses.size(); j++) {
-			vss_debug::Pose *poses = paths->add_poses();
-			poses->set_id(i);
-			poses->set_x(debug.robots_path[i].poses.at(j).x);
-			poses->set_y(debug.robots_path[i].poses.at(j).y);
-			poses->set_yaw(debug.robots_path[i].poses.at(j).z);
+			vss_sdk::d_Pose poses;
+			poses.id = i;
+			poses.x = debug.robots_path[i].poses.at(j).x;
+			poses.y = debug.robots_path[i].poses.at(j).y;
+			poses.yaw = debug.robots_path[i].poses.at(j).z;
+      paths.poses.push_back(poses);
 		}
+    global_debug.paths[i] = paths;
 	}
 
 	interface_debug.send();
