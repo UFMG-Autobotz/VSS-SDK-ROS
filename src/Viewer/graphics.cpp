@@ -258,11 +258,11 @@ void Graphics::state_thread(){
     //global_state.id();
 
     //! Atualiza a posição da bola
-    ball.x = global_state.balls[0].pose.y - (130/2.0);
-    ball.y = global_state.balls[0].pose.x - (170/2.0);
+    ball.x = global_state.ball.pose.y - (130/2.0);
+    ball.y = global_state.ball.pose.x - (170/2.0);
 
-    v_ball.x = global_state.balls[0].v_pose.y;
-    v_ball.y = global_state.balls[0].v_pose.x;
+    v_ball.x = global_state.ball.v_pose.y;
+    v_ball.y = global_state.ball.v_pose.x;
 
     //! Atualiza as posições dos robôs
     for(int i = 0 ; i < 3 ; i++){
