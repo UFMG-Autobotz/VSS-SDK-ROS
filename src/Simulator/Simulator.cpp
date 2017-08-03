@@ -22,13 +22,8 @@ copies or substantial portions of the Software.
 Simulator::Simulator(){
   // inicializa ros
   int c = 1;
-<<<<<<< HEAD
-  char *v = '';
-  ros::init(c, &v, "simulator");
-=======
   char *v = "";
-  ros::init(c, &, "simulator");
->>>>>>> comp_simulator
+  ros::init(c, &v, "simulator");
 
   contDebug = 0;
   stratStep = 0;
