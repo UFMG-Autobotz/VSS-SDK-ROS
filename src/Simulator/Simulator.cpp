@@ -23,7 +23,7 @@ Simulator::Simulator(){
   // inicializa ros
   int c = 1;
   char *v = "";
-  ros::init(c, &v, "simulator");
+  ros::init(c, &, "simulator");
 
   contDebug = 0;
   stratStep = 0;
