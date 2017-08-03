@@ -136,7 +136,7 @@ include_directories(
   # ${Qt5QtCore_DIR}
   ${OPENGL_INCLUDE_DIRS}
   ${GLUT_INCLUDE_DIRS}
-  ${BULLET_INCLUDE_DIR}
+  # ${BULLET_INCLUDE_DIR}
   # ${SQLITE3_INCLUDE_DIRS}
 )
 

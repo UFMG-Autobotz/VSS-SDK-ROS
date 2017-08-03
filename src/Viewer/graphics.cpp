@@ -40,7 +40,7 @@ GLUquadric* qobj;
 Graphics::Graphics(){
   //Inicializa ROS
   int c = 1;
-  char *v = NULL;
+  char *v = "";
   ros::init(c, &v, "viewer");
 
   //! Inicializa o time 1

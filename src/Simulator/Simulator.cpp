@@ -22,7 +22,7 @@ copies or substantial portions of the Software.
 Simulator::Simulator(){
   // inicializa ros
   int c = 1;
-  char *v = "";
+  char *v = '';
   ros::init(c, &v, "simulator");
 
   contDebug = 0;
