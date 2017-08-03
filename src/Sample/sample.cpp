@@ -42,7 +42,7 @@ void Sample::init_sample(string main_color, bool is_debug, bool real_environment
 }
 
 void Sample::receive_state(){
-	interface_receive.receiveState();
+	interface_receive.receive();
 	state = common::Global_State2State(global_state, main_color);
 	situation = global_state.situation();
 }
@@ -69,11 +69,7 @@ void Sample::send_commands(){
 		robot->set_right_vel(commands[i].right);
 	}
 
-	if(main_color == "yellow") {
-		interface_send.sendCommandTeam1();
-	}else{
-		interface_send.sendCommandTeam2();
-	}
+	interface_send.send();
 }
 
 void Sample::send_debug(){
@@ -109,9 +105,5 @@ void Sample::send_debug(){
 		}
 	}
 
-	if(main_color == "yellow") {
-		interface_debug.sendDebugTeam1();
-	}else{
-		interface_debug.sendDebugTeam2();
-	}
+	interface_debug.send();
 }

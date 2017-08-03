@@ -22,12 +22,11 @@ Interface<vss_sdk::Global_State> interface;
 Interface<vss_sdk::Global_Commands> interface_send;
 Interface<vss_sdk::Global_Debug> interface_debug;
 
-vss_state::Global_State global_state;
-vss_command::Global_Commands global_commands;
-vss_debug::Global_Debug global_debug;
+vss_sdk::Global_State global_state;
+vss_sdk::Global_Commands global_commands;
+vss_sdk::Global_Debug global_debug;
 
 protected:
-string ip_receive_state, ip_send_debug, ip_send_command;
 string main_color;
 bool is_debug;
 bool real_environment;

@@ -12,6 +12,8 @@
 #include "iostream"
 #include "math.h"
 
+#include "../Interface/interface.h"    // VSS
+
 using namespace std;
 
 namespace common{
