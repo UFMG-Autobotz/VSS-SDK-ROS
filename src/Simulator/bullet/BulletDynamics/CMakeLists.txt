@@ -1,9 +1,13 @@
+# find_package(Bullet REQUIRED)
+#
+# include_directories(
+#  include
+#   ${Bullet_INCLUDE_DIRS}
+# )
+
 INCLUDE_DIRECTORIES( ${BULLET_PHYSICS_SOURCE_DIR}/src  )
 
-
-
 SET(BulletDynamics_SRCS
-	Character/btKinematicCharacterController.cpp
 	ConstraintSolver/btConeTwistConstraint.cpp
 	ConstraintSolver/btContactConstraint.cpp
 	ConstraintSolver/btFixedConstraint.cpp
@@ -24,15 +28,6 @@ SET(BulletDynamics_SRCS
 	Dynamics/Bullet-C-API.cpp
 	Vehicle/btRaycastVehicle.cpp
 	Vehicle/btWheelInfo.cpp
-	Featherstone/btMultiBody.cpp
-	Featherstone/btMultiBodyConstraintSolver.cpp
-	Featherstone/btMultiBodyDynamicsWorld.cpp
-	Featherstone/btMultiBodyJointLimitConstraint.cpp
-	Featherstone/btMultiBodyConstraint.cpp
-	Featherstone/btMultiBodyPoint2Point.cpp
-	Featherstone/btMultiBodyJointMotor.cpp
-	MLCPSolvers/btDantzigLCP.cpp
-	MLCPSolvers/btMLCPSolver.cpp
 )
 
 SET(Root_HDRS
@@ -73,50 +68,18 @@ SET(Vehicle_HDRS
 	Vehicle/btWheelInfo.h
 )
 
-SET(Featherstone_HDRS
-	Featherstone/btMultiBody.h
-	Featherstone/btMultiBodyConstraintSolver.h
-	Featherstone/btMultiBodyDynamicsWorld.h
-	Featherstone/btMultiBodyLink.h
-	Featherstone/btMultiBodyLinkCollider.h
-	Featherstone/btMultiBodySolverConstraint.h
-	Featherstone/btMultiBodyConstraint.h
-	Featherstone/btMultiBodyJointLimitConstraint.h
-	Featherstone/btMultiBodyConstraint.h
-	Featherstone/btMultiBodyPoint2Point.h
-	Featherstone/btMultiBodyJointMotor.h
-)
-
-SET(MLCPSolvers_HDRS
-	MLCPSolvers/btDantzigLCP.h
-	MLCPSolvers/btDantzigSolver.h
-	MLCPSolvers/btMLCPSolver.h
-	MLCPSolvers/btMLCPSolverInterface.h
-	MLCPSolvers/btPATHSolver.h
-	MLCPSolvers/btSolveProjectedGaussSeidel.h	
-)
-
-SET(Character_HDRS
-	Character/btCharacterControllerInterface.h
-	Character/btKinematicCharacterController.h
-)
-
-
 
 SET(BulletDynamics_HDRS
 	${Root_HDRS}
 	${ConstraintSolver_HDRS}
 	${Dynamics_HDRS}
 	${Vehicle_HDRS}
-	${Character_HDRS}
-	${Featherstone_HDRS}
-	${MLCPSolvers_HDRS}
 )
 
 
 ADD_LIBRARY(BulletDynamics ${BulletDynamics_SRCS} ${BulletDynamics_HDRS})
-SET_TARGET_PROPERTIES(BulletDynamics PROPERTIES VERSION ${BULLET_VERSION})
-SET_TARGET_PROPERTIES(BulletDynamics PROPERTIES SOVERSION ${BULLET_VERSION})
+# SET_TARGET_PROPERTIES(BulletDynamics PROPERTIES VERSION ${BULLET_VERSION})
+# SET_TARGET_PROPERTIES(BulletDynamics PROPERTIES SOVERSION ${BULLET_VERSION})
 IF (BUILD_SHARED_LIBS)
 	TARGET_LINK_LIBRARIES(BulletDynamics BulletCollision LinearMath)
 ENDIF (BUILD_SHARED_LIBS)

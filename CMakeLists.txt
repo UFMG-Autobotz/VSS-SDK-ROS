@@ -21,7 +21,6 @@ find_package(OpenCV REQUIRED)
 # find_package(Qt5 REQUIRED COMPONENTS QtCoreConfig QtGui)
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
-# find_package(Bullet REQUIRED)
 # find_package(sqlite3 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -130,15 +129,35 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+ include
+  ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
   # ${Qt5QtCore_DIR}
   ${OPENGL_INCLUDE_DIRS}
   ${GLUT_INCLUDE_DIRS}
-  # ${BULLET_INCLUDE_DIR}
   # ${SQLITE3_INCLUDE_DIRS}
+  src/Interface
+  src/Simulator
+  src/Simulator/bullet
+  src/Simulator/utils
 )
+
+add_subdirectory(
+  src/Simulator/bullet/BulletCollision
+)
+
+add_subdirectory(
+  src/Simulator/bullet/BulletDynamics
+)
+
+add_subdirectory(
+  src/Simulator/bullet/LinearMath
+)
+
+
+
+# link_directories(${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -225,13 +244,11 @@ include_directories(
 # include_directories(include ${catkin_INCLUDE_DIRS})
 
 #interface
-
 add_library(Interface src/Interface/interface.cpp)
 target_link_libraries(Interface ${catkin_LIBRARIES})
 add_dependencies(Interface ${PROJECT_NAME}_generate_messages_cpp)
 
 # Viewer
-
 add_library(Graphics src/Viewer/graphics.cpp)
 target_link_libraries(Graphics ${catkin_LIBRARIES})
 target_link_libraries(Graphics ${OPENGL_LIBRARIES})
@@ -244,7 +261,6 @@ target_link_libraries(viewer ${Boost_LIBRARIES})
 target_link_libraries(viewer Graphics)
 
 # Sample
-
 add_library(Common src/Sample/common.cpp)
 target_link_libraries(Common ${catkin_LIBRARIES})
 add_dependencies(Common ${PROJECT_NAME}_generate_messages_cpp)
@@ -263,17 +279,50 @@ target_link_libraries(Sample ${Boost_LIBRARIES})
 target_link_libraries(Sample Strategy_sample)
 target_link_libraries(Sample ${catkin_LIBRARIES})
 
-# Simulator
-#add_executable(simulator_Main src/Simulator/main.cpp)
+# simulator
+add_library(RobotPhysics src/Simulator/RobotPhysics.cpp)
+target_link_libraries(RobotPhysics BulletCollision)
+target_link_libraries(RobotPhysics BulletDynamics)
+target_link_libraries(RobotPhysics LinearMath)
 
-#add_library(Simulator src/Simulator/Simulator.cpp)
-#target_link_libraries(simulator_Main simulator)
+add_library(RobotStrategy src/Simulator/RobotStrategy.cpp)
 
-#add_library(ModelStrategy src/Simulator/strategies/ModelStrategy.cpp)
-#target_link_libraries(simulator_Main ModelStrategy)
+add_library(GLDebugDrawer src/Simulator/utils/GLDebugDrawer.cpp)
+target_link_libraries(GLDebugDrawer ${OPENGL_LIBRARIES})
+target_link_libraries(GLDebugDrawer ${GLUT_LIBRARIES})
 
-#add_library(Strategy src/Simulator/strategies/Strategy.cpp)
-#target_link_libraries(simulator_Main Strategy)
+add_library(ModelStrategy src/Simulator/strategies/ModelStrategy.cpp)
+target_link_libraries(ModelStrategy RobotStrategy)
 
-#add_library(StrategyBasic src/Simulator/strategies/StrategyBasic.cpp)
-#target_link_libraries(simulator_Main StrategyBasic)
+add_library(Strategy src/Simulator/strategies/Strategy.cpp)
+target_link_libraries(Strategy ModelStrategy)
+
+add_library(StrategyBasic src/Simulator/strategies/StrategyBasic.cpp)
+target_link_libraries(StrategyBasic ModelStrategy)
+
+add_library(Physics src/Simulator/Physics.cpp)
+target_link_libraries(Physics RobotStrategy)
+target_link_libraries(Physics GLDebugDrawer)
+target_link_libraries(Physics RobotPhysics)
+
+add_library(Arbiter src/Simulator/Arbiter.cpp)
+target_link_libraries(Arbiter Physics)
+
+add_library(Simulator_lib src/Simulator/Simulator.cpp)
+target_link_libraries(Simulator_lib ${catkin_LIBRARIES})
+target_link_libraries(Simulator_lib Physics)
+target_link_libraries(Simulator_lib RobotStrategy)
+target_link_libraries(Simulator_lib RobotPhysics)
+target_link_libraries(Simulator_lib Strategy)
+target_link_libraries(Simulator_lib ModelStrategy)
+target_link_libraries(Simulator_lib Interface)
+target_link_libraries(Simulator_lib Arbiter)
+add_dependencies(Simulator_lib ${PROJECT_NAME}_generate_messages_cpp)
+
+add_executable(Simulator src/Simulator/main.cpp)
+target_link_libraries(Simulator ${Boost_LIBRARIES})
+target_link_libraries(Simulator ${catkin_LIBRARIES})
+target_link_libraries(Simulator Simulator_lib)
+target_link_libraries(Simulator ModelStrategy)
+target_link_libraries(Simulator Strategy)
+target_link_libraries(Simulator StrategyBasic)

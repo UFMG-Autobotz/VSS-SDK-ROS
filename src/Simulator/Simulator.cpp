@@ -17,13 +17,18 @@ copies or substantial portions of the Software.
 
 // para evitar erros de ligaçao:
 //https://www.codeproject.com/Articles/48575/How-to-define-a-template-class-in-a-h-file-and-imp
-#include "../Interface/interface.cpp"
+#include "interface.cpp"
 
 Simulator::Simulator(){
   // inicializa ros
   int c = 1;
+<<<<<<< HEAD
   char *v = '';
   ros::init(c, &v, "simulator");
+=======
+  char *v = "";
+  ros::init(c, &, "simulator");
+>>>>>>> comp_simulator
 
   contDebug = 0;
   stratStep = 0;
@@ -190,18 +195,18 @@ void Simulator::runSender(Interface<vss_sdk::Global_State> *interface){
     global_state.name_blue = name_team_2;
   }
 
-  vss_sdk::s_Ball_State *ball_s;
-  ball_s->pose.x = physics->getBallPosition().getX();
-  ball_s->pose.y = physics->getBallPosition().getZ();
+  vss_sdk::s_Ball_State ball_s;
+  ball_s.pose.x = physics->getBallPosition().getX();
+  ball_s.pose.y = physics->getBallPosition().getZ();
 
-  ball_s->v_pose.x = physics->getBallVelocity().getX();
-  ball_s->v_pose.y = physics->getBallVelocity().getZ();
+  ball_s.v_pose.x = physics->getBallVelocity().getX();
+  ball_s.v_pose.y = physics->getBallVelocity().getZ();
 
-  ball_s->k_pose.x = 0;
-  ball_s->k_pose.y = 0;
+  ball_s.k_pose.x = 0;
+  ball_s.k_pose.y = 0;
 
-  ball_s->k_v_pose.x = 0;
-  ball_s->k_v_pose.y = 0;
+  ball_s.k_v_pose.x = 0;
+  ball_s.k_v_pose.y = 0;
 
   global_state.ball = ball_s;
 
