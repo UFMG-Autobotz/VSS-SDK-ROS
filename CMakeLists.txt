@@ -12,6 +12,7 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  qt_build
   std_msgs
   message_generation
   message_runtime)
@@ -19,10 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 #find_package(Boost COMPONENTS program_options REQUIRED)
 find_package(OpenCV REQUIRED)
-# find_package(Bullet REQUIRED)
-# find_package(Qt5 REQUIRED COMPONENTS QtCoreConfig QtGui)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Core REQUIRED)
+# find_package(Qt5 REQUIRED COMPONENTS Widgets Core Gui Application)
 find_package(OpenGL REQUIRED)
 #find_package(GLUT REQUIRED)
 find_package(sqlite3 REQUIRED)
@@ -122,9 +120,39 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES vss_sdk
-  CATKIN_DEPENDS roscpp rospy std_msgs
+  CATKIN_DEPENDS roscpp rospy qt_build std_msgs
 #  DEPENDS system_lib
 )
+
+
+##############################################################################
+# Qt Environment
+##############################################################################
+
+# this comes from qt_build's qt-ros.cmake which is automatically
+# included via the dependency call in package.xml
+rosbuild_prepare_qt4(QtCore QtGui QtWidgets QApplication) # Add the appropriate components to the component list here
+
+
+##############################################################################
+# Sections
+##############################################################################
+
+file(GLOB QT_FORMS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ui/*.ui)
+file(GLOB QT_RESOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} resources/*.qrc)
+file(GLOB_RECURSE QT_MOC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS include/vss_sdk/*.hpp)
+
+QT4_ADD_RESOURCES(QT_RESOURCES_CPP ${QT_RESOURCES})
+QT4_WRAP_UI(QT_FORMS_HPP ${QT_FORMS})
+QT4_WRAP_CPP(QT_MOC_HPP ${QT_MOC})
+
+
+##############################################################################
+# Sources
+##############################################################################
+
+file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS src/*.cpp)
+
 
 ###########
 ## Build ##
@@ -137,9 +165,12 @@ include_directories(
  # ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
-  # ${Bullet_INCLUDE_DIRS}
-  #${Qt5QtCore_DIR}
-  ${Qt5Widgets_INCLUDE_DIRS}
+
+  # ${Qt5Gui_INCLUDE_DIRS}
+  # ${Qt5Widgets_INCLUDE_DIRS}
+  # ${Qt5Core_INCLUDE_DIRS}
+  # ${Qt5Application_INCLUDE_DIRS}
+
   ${OPENGL_INCLUDE_DIRS}
  # ${GLUT_INCLUDE_DIRS}
   ${SQLITE3_INCLUDE_DIRS}
@@ -203,6 +234,8 @@ include_directories(
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
+  install(TARGETS vss-sdk Vision RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/
 #   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
@@ -213,7 +246,7 @@ include_directories(
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES
 #   # myfile1
-#   # myfile2
+#   # myfsile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
@@ -246,9 +279,10 @@ add_library(Interface src/Interface/interface.cpp)
 target_link_libraries(Interface ${catkin_LIBRARIES})
 
 #vision
-add_executable(Vision src/Vision/main.cpp src/Vision/mainwindow.cpp)
-target_link_libraries (Vision ${SQLITE3_LIBRARIES})
-target_link_libraries (Vision ${catkin_LIBRARIES})
-target_link_libraries (Vision ${OpenCV_LIBRARIES})
-target_link_libraries(Vision ${catkin_LIBRARIES} Qt5::Widgets)
 
+
+# add_executable(Vision src/Vision/main.cpp src/Vision/mainwindow.cpp)
+# target_link_libraries (Vision ${SQLITE3_LIBRARIES})
+# target_link_libraries (Vision ${catkin_LIBRARIES})
+# target_link_libraries (Vision ${OpenCV_LIBRARIES})
+# target_link_libraries(Vision ${catkin_LIBRARIES} Qt5::Widgets)

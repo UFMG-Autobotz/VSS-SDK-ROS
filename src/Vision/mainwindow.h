@@ -147,6 +147,7 @@ public slots:
     void getNewStateVision();
 
 protected:
+    Interface <vss_sdk::Global_State> interface;
     string user_path;
     calibration *calib;
     vision *vi;
