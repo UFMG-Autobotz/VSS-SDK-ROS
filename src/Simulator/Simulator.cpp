@@ -34,7 +34,7 @@ Simulator::Simulator(){
   caseWorld = NONE;
   runningPhysics = false;
 
-  for(int i = 0 ; i < 6 ; i++){
+  for(int i = 0; i < 6; i++) {
     Command cmd(0, 0);
     commands.push_back(cmd);
   }
@@ -85,30 +85,31 @@ void Simulator::runSimulator(int argc, char *argv[], ModelStrategy *stratBlueTea
   }
 
   physics = new Physics(numTeams);
-
   vector<RobotPhysics*> gRobots = physics->getAllRobots();
 
-  for(int i = 0; i < physics->getNumTeams();i++){
+  for(int i = 0; i < physics->getNumTeams(); i++) {
     vector<RobotStrategy*> robotStrategiesTeam;
-    for(int j = 0; j < numRobotsTeam;j++){
+
+    for(int j = 0; j < numRobotsTeam; j++) {
       RobotStrategy* robotStrategy = new RobotStrategy(0);
       robotStrategiesTeam.push_back(robotStrategy);
     }
+
     gameState->robotStrategiesTeam = robotStrategiesTeam;
     gameState->robotStrategiesAdv = robotStrategiesTeam;
   }
 
   thread_physics = new thread(bind(&Simulator::runPhysics, this));
-  thread_strategies = new thread(bind(&Simulator::runStrategies, this));
-  thread_receive_team1 = new thread(bind(&Simulator::runReceiveTeam1, this));
-  thread_receive_team2 = new thread(bind(&Simulator::runReceiveTeam2, this));
+  // thread_strategies = new thread(bind(&Simulator::runStrategies, this));
+  // thread_receive_team1 = new thread(bind(&Simulator::runReceiveTeam1, this));
+  // thread_receive_team2 = new thread(bind(&Simulator::runReceiveTeam2, this));
 
   thread_physics->join();
-  thread_strategies->join();
-  thread_receive_team1->join();
-  thread_receive_team2->join();
+  // thread_strategies->join();
+  // thread_receive_team1->join();
+  // thread_receive_team2->join();
 
-  report.show();
+  // report.show();
 }
 
 
@@ -128,7 +129,7 @@ void Simulator::runReceiveTeam1(){
     }
 
     situation_team1 = global_commands_team_1.situation;
-    for(int i = 0 ; i < global_commands_team_1.robot_commands.size() ; i++){
+    for(int i = 0 ; i < global_commands_team_1.robot_commands.size() ; i++) {
       commands.at(i) = Command((float)global_commands_team_1.robot_commands[i].left_vel+0.001, (float)global_commands_team_1.robot_commands[i].right_vel+0.001);
     }
 
@@ -154,7 +155,7 @@ void Simulator::runReceiveTeam2(){
     }
 
     situation_team2 = global_commands_team_2.situation;
-    for(int i = 0 ; i < global_commands_team_2.robot_commands.size() ; i++){
+    for(int i = 0 ; i < global_commands_team_2.robot_commands.size() ; i++) {
       commands.at(i+3) = Command((float)global_commands_team_2.robot_commands[i].left_vel+0.001, (float)global_commands_team_2.robot_commands[i].right_vel+0.001);
     }
 
@@ -259,7 +260,7 @@ void Simulator::runSender(Interface<vss_sdk::Global_State> *interface){
   interface->send();
 }
 
-void Simulator::runPhysics(){
+void Simulator::runPhysics() { // REVIEW
   int subStep = 1;
   float standStep = 1.f/60.f;
 
@@ -269,10 +270,6 @@ void Simulator::runPhysics(){
   Interface <vss_sdk::Global_State> interface;
   interface.createSend(&global_state, "state");
 
-  // REVIEW por enquanto estou inicializando o vetor de robos e de bolas assim
-  // porque acho que o viewer pode mandar mais de 3 robos e mais de uma bolas
-  // verificar se é possivel so definir o tamanho no .msg
-
   while(!finish_match && ros::ok()){
     usleep(1000000.f*timeStep/handTime);
 
@@ -280,24 +277,24 @@ void Simulator::runPhysics(){
     loopBullet++;
     //cout << "--------Ciclo Atual:\t" << loopBullet << "--------" << endl;
     if(gameState->sameState){
-      physics->stepSimulation(timeStep,subStep,standStep);
-      gameState->sameState = false;
-
-      report.qtd_of_steps++;
+      physics->stepSimulation(timeStep,subStep,standStep); // FIXME 0
+      // gameState->sameState = false;
+      //
+      // report.qtd_of_steps++;
     }
 
-    updateReport();
-    runningPhysics = true;
-
-    arbiter.checkWorld();
-
-    if(!develop_mode){
-      if(report.total_of_goals_team[0] >= qtd_of_goals || report.total_of_goals_team[1] >= qtd_of_goals || report.qtd_of_steps > 3500*qtd_of_goals){
-        finish_match = true;
-      }
-    }
-
-    runSender(&interface);
+    // updateReport();
+    // runningPhysics = true;
+    //
+    // arbiter.checkWorld();
+    //
+    // if(!develop_mode){
+    //   if(report.total_of_goals_team[0] >= qtd_of_goals || report.total_of_goals_team[1] >= qtd_of_goals || report.qtd_of_steps > 3500*qtd_of_goals){
+    //     finish_match = true;
+    //   }
+    // }
+    //
+    // runSender(&interface);
   }
 }
 

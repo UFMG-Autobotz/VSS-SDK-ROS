@@ -151,9 +151,9 @@ void Physics::resetRobotPositions(){
     }
 }
 
-void Physics::stepSimulation(float timeW,float subStep, float timeStep){
+void Physics::stepSimulation(float timeW,float subStep, float timeStep){ // REVIEW
     setupBodiesProp();
-    world->stepSimulation(timeW, subStep, timeStep);
+    world->stepSimulation(timeW, subStep, timeStep); // FIXME 1
 }
 
 void Physics::setupBodiesProp(){
