@@ -326,3 +326,14 @@ target_link_libraries(Simulator Simulator_lib)
 target_link_libraries(Simulator ModelStrategy)
 target_link_libraries(Simulator Strategy)
 target_link_libraries(Simulator StrategyBasic)
+
+
+# Testando mensagens
+
+add_executable(state_talker src/state_tester/talker.cpp)
+target_link_libraries(state_talker ${catkin_LIBRARIES})
+add_dependencies(state_talker ${PROJECT_NAME}_generate_messages_cpp)
+
+add_executable(state_listener src/state_tester/listener.cpp)
+target_link_libraries(state_listener ${catkin_LIBRARIES})
+add_dependencies(state_listener ${PROJECT_NAME}_generate_messages_cpp)
