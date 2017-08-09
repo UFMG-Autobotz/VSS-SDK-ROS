@@ -14,7 +14,7 @@ void Interface<msg_Type>::createSend(msg_Type *message, std::string nodeName){
   //! Global_State é recebido como ponteiro, assim facilitando o envio de novos estados
   msg = message;
   nh.setCallbackQueue(&q);
-  pub = nh.advertise<msg_Type>(nodeName, 5);
+  pub = nh.advertise<msg_Type>(nodeName, 1000);
 }
 
 //! Esse método deve ser chamado em um loop infinito controlado.
@@ -29,7 +29,7 @@ template <class msg_Type>
 void Interface<msg_Type>::createReceive(msg_Type *message, std::string nodeName){
   msg = message;
   nh.setCallbackQueue(&q);
-  sub = nh.subscribe(nodeName, 5, &Interface::callback, this);
+  sub = nh.subscribe(nodeName, 1000, &Interface::callback, this);
 }
 
 template <class msg_Type>
@@ -41,5 +41,5 @@ void Interface<msg_Type>::callback(const msg_Type message) {
 //! O recebimento tratado aqui é não bloqueante
 template <class msg_Type>
 void Interface<msg_Type>::receive(){
-  while (ros::ok()) q.callAvailable(ros::WallDuration());
+  q.callAvailable(ros::WallDuration());
 }

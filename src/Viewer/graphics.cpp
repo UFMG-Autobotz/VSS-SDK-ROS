@@ -250,11 +250,13 @@ void Graphics::state_thread(){
   Interface<vss_sdk::Global_State> interface;
   interface.createReceive(&global_state, "state");
 
-  //! Recebe um novo pacote
-  interface.receive();
+
 
   //TODO dar ritmo para o loop
   while(ros::ok()){
+    //! Recebe um novo pacote
+    interface.receive();
+    
     //global_state.id();
 
     //! Atualiza a posição da bola
@@ -303,6 +305,7 @@ void Graphics::state_thread(){
     if(global_state.name_blue.size() != 0){
       static_name_team_2 = global_state.name_blue;
     }
+
   }
 }
 
