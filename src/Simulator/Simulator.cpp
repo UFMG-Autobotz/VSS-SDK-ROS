@@ -117,10 +117,11 @@ void Simulator::runReceiveTeam1(){
   Interface<vss_sdk::Global_Commands> interface;
   interface.createReceive(&global_commands_team_1, "commandsYellow");
 
-  interface.receive();
+
 
   //TODO dar ritmo para o loop
   while(!finish_match && ros::ok()){
+    interface.receive();
 
     if(status_team_1 == -1){
       status_team_1 = 0;
@@ -144,9 +145,8 @@ void Simulator::runReceiveTeam2(){
   Interface <vss_sdk::Global_Commands> interface;
   interface.createReceive(&global_commands_team_2, "commandsBlue");
 
-  interface.receive();
-
   while(!finish_match && ros::ok()){
+    interface.receive();
 
     if(status_team_2 == -1){
       status_team_2 = 0;

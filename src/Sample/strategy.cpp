@@ -24,7 +24,7 @@ void Strategy::init(string main_color, bool is_debug, bool real_environment, str
 }
 
 void Strategy::loop(){
-	while(true) {
+	while(true && ros::ok()) {
 		// DON'T REMOVE receive_data();
 		receive_state();
 		// DON'T REMOVE receive_Data();'

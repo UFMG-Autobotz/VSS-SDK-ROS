@@ -41,5 +41,5 @@ void Interface<msg_Type>::callback(const msg_Type message) {
 //! O recebimento tratado aqui é não bloqueante
 template <class msg_Type>
 void Interface<msg_Type>::receive(){
-  q.callAvailable(ros::WallDuration());
+  q.callAvailable(ros::WallDuration()); // callAvailable é usado no lugar de spinOnce porque cada mensagem tem sua propria fila
 }

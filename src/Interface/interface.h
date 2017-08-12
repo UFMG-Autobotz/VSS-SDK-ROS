@@ -33,11 +33,12 @@
 using namespace std;
 
 //! Essa classe define as interfaces utilizadas em todos os projetos do VSS-SDK
+// cada objeto deve apenas enviar ou receber um tipo de mensagem
 template <class msg_Type>
 class Interface{
 protected:
   ros::NodeHandle nh;
-  ros::CallbackQueue q;
+  ros::CallbackQueue q;  // para evitar conflitos, cada mensagem tem sua propria fila
   ros::Publisher pub;
   ros::Subscriber sub;
 

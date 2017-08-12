@@ -5,7 +5,7 @@ uint8 id
 bool is_team_yellow
 
 # Lista dinâmica de comandos. Sendo sempre 3, devido a quantidade robôs
-c_Robot_Command[] robot_commands
+c_Robot_Command[3] robot_commands
 
 # Situação em que se encontra o comando. No futuro os robôs serão posicionados autonomamente
 uint8 situation

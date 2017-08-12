@@ -55,11 +55,7 @@ void Sample::send_commands() {
 		flag_init = 1;
 	}
 
-	if(main_color == "yellow") {
-		global_commands.is_team_yellow = true;
-	}else{
-		global_commands.is_team_yellow = false;
-	}
+	global_commands.is_team_yellow = main_color == "yellow";
 
 	for(int i = 0; i < 3; i++) {
     vss_sdk::c_Robot_Command robot;

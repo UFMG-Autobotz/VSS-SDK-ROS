@@ -32,7 +32,7 @@ protected:
 	btVector3 final;
 	bool changePose;
 public:
-	Strategy();	
+	Strategy();
 
 	void init(string main_color, bool is_debug, bool real_environment, string ip_receive_state, string ip_send_debug, string ip_send_command, string name);
 	void loop();
