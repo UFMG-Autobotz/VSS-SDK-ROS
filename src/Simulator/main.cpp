@@ -47,9 +47,9 @@ int main(int argc, char *argv[]){
   bool develop_mode = false;
 
   if(argParse(argc, argv, &fast_travel, &qtd_of_goals, &develop_mode)){
+    ros::init(argc,argv,"simulator");
     Strategy *stratYellowTeam = new Strategy(); //Original strategy
     Strategy *stratBlueTeam = new Strategy(); //Strategy for tests
-
     Simulator* simulator = new Simulator();
     simulator->runSimulator(argc, argv, stratBlueTeam, stratYellowTeam, fast_travel, qtd_of_goals, develop_mode);
   }else{

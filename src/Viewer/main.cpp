@@ -21,6 +21,7 @@ int main(int argc, char** argv){
 	string ip;
 
 	if(argParse(argc, argv, &debug, &camera, &ip)) {
+		ros::init(argc, argv, "viewer"); //Inicializa ROS
 		Graphics graphics;
 		graphics.init(argc, argv, debug, camera, ip);
     cout << "oi";

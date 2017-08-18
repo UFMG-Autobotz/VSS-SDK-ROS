@@ -38,11 +38,7 @@ GLUquadric* qobj;
 //! Inicializa o vector de robôs com valores default.
 //! O software tem o conceito de times
 Graphics::Graphics(){
-  //Inicializa ROS
-  int c = 1;
-  char *v = "";
-  ros::init(c, &v, "viewer");
-
+  
   //! Inicializa o time 1
   for(int i = 0 ; i < 3 ; i++){
     Robot robot;
@@ -256,7 +252,7 @@ void Graphics::state_thread(){
   while(ros::ok()){
     //! Recebe um novo pacote
     interface.receive();
-    
+
     //global_state.id();
 
     //! Atualiza a posição da bola

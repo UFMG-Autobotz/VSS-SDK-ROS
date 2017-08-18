@@ -20,10 +20,6 @@ copies or substantial portions of the Software.
 #include "interface.cpp"
 
 Simulator::Simulator(){
-  // inicializa ros
-  int c = 1;
-  char *v = "";
-  ros::init(c, &v, "simulator");
 
   contDebug = 0;
   stratStep = 0;
@@ -129,6 +125,7 @@ void Simulator::runReceiveTeam1(){
     }
 
     situation_team1 = global_commands_team_1.situation;
+
     for(int i = 0 ; i < global_commands_team_1.robot_commands.size() ; i++){
       commands.at(i) = Command((float)global_commands_team_1.robot_commands[i].left_vel+0.001, (float)global_commands_team_1.robot_commands[i].right_vel+0.001);
     }
