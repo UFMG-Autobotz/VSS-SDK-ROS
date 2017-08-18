@@ -17,18 +17,18 @@
 #include <string>
 #include "unistd.h"
 
-#include "vss_sdk/Global_State.h"
-#include "vss_sdk/s_Ball_State.h"
-#include "vss_sdk/s_Pose.h"
-#include "vss_sdk/s_RGB.h"
-#include "vss_sdk/s_Robot_State.h"
+#include "vss_sdk/global_state.h"
+#include "vss_sdk/s_ball_state.h"
+#include "vss_sdk/s_pose.h"
+#include "vss_sdk/s_rgb.h"
+#include "vss_sdk/s_robot_state.h"
 
-#include "vss_sdk/Global_Commands.h"
-#include "vss_sdk/c_Robot_Command.h"
+#include "vss_sdk/global_commands.h"
+#include "vss_sdk/c_robot_command.h"
 
-#include "vss_sdk/Global_Debug.h"
-#include "vss_sdk/d_Path.h"
-#include "vss_sdk/d_Pose.h"
+#include "vss_sdk/global_debug.h"
+#include "vss_sdk/d_path.h"
+#include "vss_sdk/d_pose.h"
 
 using namespace std;
 

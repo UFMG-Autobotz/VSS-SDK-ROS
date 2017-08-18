@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ros::init(c, &v, "vision");
 
     //! Define the interface VSS
-    Interface <vss_sdk::Global_State> interface;
+    Interface <vss_sdk::global_state> interface;
     interface.createSend(&global_state, "state");
 
     for(int i = 0 ; i < 8 ; i++){
@@ -1425,7 +1425,7 @@ void MainWindow::getNewImageCalib(){
 void MainWindow::getNewStateVision(){
     image->setPixmap(QPixmap::fromImage(mat2Image(vi->raw_in)));
 
-    global_state = State2Global_State(state, execConfig);
+    global_state = State2global_state(state, execConfig);
 
     interface.send();
     //qDebug() << "send state";

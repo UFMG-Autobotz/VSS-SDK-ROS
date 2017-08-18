@@ -11,7 +11,7 @@
 //! Esse método deve ser chamado apenas uma vez
 template <class msg_Type>
 void Interface<msg_Type>::createSend(msg_Type *message, std::string nodeName){
-  //! Global_State é recebido como ponteiro, assim facilitando o envio de novos estados
+  //! global_state é recebido como ponteiro, assim facilitando o envio de novos estados
   msg = message;
   nh.setCallbackQueue(&q);
   pub = nh.advertise<msg_Type>(nodeName, 1000);

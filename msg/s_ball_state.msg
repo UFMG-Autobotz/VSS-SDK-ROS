@@ -4,13 +4,13 @@
 # estimados pelo Filtro de Kalman.
 
 # Posição de uma bola. Sendo somente esse o valor OBRIGATÓRIO, pois os outros estão sendo implementados ainda.
-s_Pose pose
+s_pose pose
 
 # Velocidade linear e tangencial de uma bola
-s_Pose v_pose
+s_pose v_pose
 
 # Estimativa de Posição de uma bola
-s_Pose k_pose
+s_pose k_pose
 
 # Estimativa de Velocidade linear e tangencial de uma bola
-s_Pose k_v_pose
+s_pose k_v_pose

@@ -86,7 +86,7 @@ int main(int argc, char **argv)
    * buffer up before throwing some away.
    */
 // %Tag(PUBLISHER)%
-  ros::Publisher chatter_pub = n.advertise<vss_sdk::Global_State>("state", 1000);
+  ros::Publisher chatter_pub = n.advertise<vss_sdk::global_state>("state", 1000);
 // %EndTag(PUBLISHER)%
 
 // %Tag(LOOP_RATE)%
@@ -106,7 +106,7 @@ int main(int argc, char **argv)
      * This is a message object. You stuff it with data, and then publish it.
      */
 // %Tag(FILL_MESSAGE)%
-    vss_sdk::Global_State msg;
+    vss_sdk::global_state msg;
     msg.robots_yellow[0].pose.x=rand()%100+1;
     msg.robots_yellow[0].pose.y=rand()%100+1;
     msg.origin=false;

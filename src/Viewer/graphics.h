@@ -53,11 +53,11 @@ protected:
     thread *thread_debug_team2;
 
     //! Pacote que carrega os estados do VSS-Vision e VSS-Simulator
-    vss_sdk::Global_State global_state;
+    vss_sdk::global_state global_state;
     //! Pacote que carrega as informações de debug do time amarelo
-    vss_sdk::Global_Debug global_debug_team1;
+    vss_sdk::global_debug global_debug_team1;
     //! Pacote que carrega as informações de debug do time azul
-    vss_sdk::Global_Debug global_debug_team2;
+    vss_sdk::global_debug global_debug_team2;
 
     //! Nome dos times amarelo e azul
     string name_team_1, name_team_2;

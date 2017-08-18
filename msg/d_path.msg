@@ -5,4 +5,4 @@
 # Gradientes e etc.
 
 uint8 id
-d_Pose[] poses
+d_pose[] poses

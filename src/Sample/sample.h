@@ -18,13 +18,13 @@ using namespace common;
 
 class Sample {
 private:
-Interface<vss_sdk::Global_State> interface;
-Interface<vss_sdk::Global_Commands> interface_send;
-Interface<vss_sdk::Global_Debug> interface_debug;
+Interface<vss_sdk::global_state> interface;
+Interface<vss_sdk::global_commands> interface_send;
+Interface<vss_sdk::global_debug> interface_debug;
 
-vss_sdk::Global_State global_state;
-vss_sdk::Global_Commands global_commands;
-vss_sdk::Global_Debug global_debug;
+vss_sdk::global_state global_state;
+vss_sdk::global_commands global_commands;
+vss_sdk::global_debug global_debug;
 
 protected:
 string main_color;

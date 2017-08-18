@@ -6,13 +6,13 @@ bool origin
 
 # Lista dinâmica de bolas. Esta parte é definida dinâmicamente, pois podem existir situações indesejadas onde mais de uma bola está presente no ambiente
 # REVIEW Mudei para apenas uma bola porque tanto o codigo do viewer quanto do simulator so enviavam uma bola
-s_Ball_State ball
+s_ball_state ball
 
 # Lista dinâmica de robôs amarelos. Em geral sempre são enviados 3 robôs.
-s_Robot_State[3] robots_yellow
+s_robot_state[3] robots_yellow
 
 # Lista dinâmica de robôs azuis. Em geral sempre são enviados 3 robôs.
-s_Robot_State[3] robots_blue
+s_robot_state[3] robots_blue
 
 # Situação em que a partida se encontra, será utilizado no futuro, para "obrigar" os robôs sempre a se reposicionarem autonomamente no campo
 uint8 situation

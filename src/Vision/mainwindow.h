@@ -152,7 +152,7 @@ protected:
     vision *vi;
     SQLite *sql;
     Ui::MainWindow *ui;
-    vss_sdk::Global_State global_state;
+    vss_sdk::global_state global_state;
     QIcon blockdevice, ksame, kdf, package, database;
 
     // QTree

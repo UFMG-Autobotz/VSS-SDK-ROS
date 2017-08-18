@@ -43,7 +43,7 @@ void Sample::init_sample(string main_color, bool is_debug, bool real_environment
 
 void Sample::receive_state(){
 	interface.receive();
-	state = common::Global_State2State(global_state, main_color);
+	state = common::global_state2State(global_state, main_color);
 	situation = global_state.situation;
 }
 
@@ -58,7 +58,7 @@ void Sample::send_commands() {
 	global_commands.is_team_yellow = main_color == "yellow";
 
 	for(int i = 0; i < 3; i++) {
-    vss_sdk::c_Robot_Command robot;
+    vss_sdk::c_robot_command robot;
 		robot.id = i;
 		robot.left_vel = commands[i].left;
 		robot.right_vel = commands[i].right;
@@ -72,7 +72,7 @@ void Sample::send_debug() {
 
 	// Add step pose, if exists
 	for (int i = 0; i < 3; i++) {
-    vss_sdk::d_Pose steps;
+    vss_sdk::d_pose steps;
 		steps.id = i;
 		steps.x = debug.robots_step_pose[i].x;
 		steps.y = debug.robots_step_pose[i].y;
@@ -82,7 +82,7 @@ void Sample::send_debug() {
 
 	// Add final pose, if exists
 	for (int i = 0; i < 3; i++) {
-    vss_sdk::d_Pose finals;
+    vss_sdk::d_pose finals;
 		finals.id = i;
 		finals.x = debug.robots_final_pose[i].x;
 		finals.y = debug.robots_final_pose[i].y;
@@ -91,10 +91,10 @@ void Sample::send_debug() {
 	}
 
 	for(int i = 0; i < 3; i++) {
-    vss_sdk::d_Path paths;
+    vss_sdk::d_path paths;
 		paths.id = i;
 		for(int j = 0; j < debug.robots_path[i].poses.size(); j++) {
-			vss_sdk::d_Pose poses;
+			vss_sdk::d_pose poses;
 			poses.id = i;
 			poses.x = debug.robots_path[i].poses.at(j).x;
 			poses.y = debug.robots_path[i].poses.at(j).y;

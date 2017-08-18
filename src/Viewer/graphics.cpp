@@ -143,7 +143,7 @@ void Graphics::draw_thread(){
 
 void Graphics::debug_thread_team1(){
   //! Inicializa o recebimento de debug do time amarelo
-  Interface<vss_sdk::Global_Debug> interface;
+  Interface<vss_sdk::global_debug> interface;
   interface.createReceive(&global_debug_team1, "debugYellow");
 
   //! Recebe um pacote novo
@@ -196,7 +196,7 @@ void Graphics::debug_thread_team1(){
 
 void Graphics::debug_thread_team2() {
   //! Inicializa o recebimento de debug do time azul
-  Interface<vss_sdk::Global_Debug> interface;
+  Interface<vss_sdk::global_debug> interface;
   interface.createReceive(&global_debug_team2, "debugBlue");
 
   //! Recebe um pacote novo
@@ -247,7 +247,7 @@ void Graphics::debug_thread_team2() {
 
 void Graphics::state_thread(){
   //! Inicializa o recebimento de estados do VSS-Vision e VSS-Simulator
-  Interface<vss_sdk::Global_State> interface;
+  Interface<vss_sdk::global_state> interface;
   interface.createReceive(&global_state, "state");
 
 

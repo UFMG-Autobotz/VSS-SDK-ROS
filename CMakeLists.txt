@@ -55,16 +55,16 @@ find_package(GLUT REQUIRED)
 ## Generate messages in the 'msg' folder
 add_message_files(
    FILES
-   c_Robot_Command.msg
-   d_Path.msg
-   d_Pose.msg
-   Global_Commands.msg
-   Global_Debug.msg
-   Global_State.msg
-   s_Ball_State.msg
-   s_Pose.msg
-   s_RGB.msg
-   s_Robot_State.msg
+   c_robot_command.msg
+   d_path.msg
+   d_pose.msg
+   global_commands.msg
+   global_debug.msg
+   global_state.msg
+   s_ball_state.msg
+   s_pose.msg
+   s_rgb.msg
+   s_robot_state.msg
  )
 
 ## Generate services in the 'srv' folder

@@ -126,15 +126,15 @@ namespace common{
     return atan2(a.y - b.y, a.x - b.x);
   }
 
-  vss_sdk::Global_State State2Global_State(State state, ExecConfiguration exec){
-    vss_sdk::Global_State global_state;
+  vss_sdk::global_state State2global_state(State state, ExecConfiguration exec){
+    vss_sdk::global_state global_state;
     TableColor c;
 
     global_state.id = 0;
     global_state.situation = 0;
     global_state.origin = true;
 
-    vss_sdk::s_Ball_State *ball_s;
+    vss_sdk::s_ball_state *ball_s;
     ball_s->pose.x = state.ball.x;
     ball_s->pose.y = state.ball.y;
 
@@ -152,7 +152,7 @@ namespace common{
     switch(exec.team_color[0]){
       case YELLOW:{
         for(int i = 0 ; i < 3 ; i++){
-          vss_sdk::s_Robot_State robot_s; // = global_state.add_robots_blue();
+          vss_sdk::s_robot_state robot_s; // = global_state.add_robots_blue();
 
           robot_s.pose.x = state.robots[i+3].pose.x;
           robot_s.pose.y = state.robots[i+3].pose.y;
@@ -182,7 +182,7 @@ namespace common{
         }
 
         for(int i = 0 ; i < 3 ; i++){
-          vss_sdk::s_Robot_State robot_s;
+          vss_sdk::s_robot_state robot_s;
 
           robot_s.pose.x = state.robots[i].pose.x;
           robot_s.pose.y = state.robots[i].pose.y;
@@ -211,7 +211,7 @@ namespace common{
       }break;
       case BLUE:{
         for(int i = 0 ; i < 3 ; i++){
-          vss_sdk::s_Robot_State robot_s;
+          vss_sdk::s_robot_state robot_s;
 
           robot_s.pose.x = state.robots[i].pose.x;
           robot_s.pose.y = state.robots[i].pose.y;
@@ -241,7 +241,7 @@ namespace common{
         }
 
         for(int i = 0 ; i < 3 ; i++){
-          vss_sdk::s_Robot_State robot_s;// = global_state.add_robots_yellow();
+          vss_sdk::s_robot_state robot_s;// = global_state.add_robots_yellow();
 
           robot_s.pose.x = state.robots[i+3].pose.x;
           robot_s.pose.y = state.robots[i+3].pose.y;

@@ -8,9 +8,9 @@ Legenda
 ---
 
 Exemplo1:
-"c_Global_Commands.msg"
-Vem de commands.proto e corresponde a mensagem Global_Commands
+"c_global_commands.msg"
+Vem de commands.proto e corresponde a mensagem global_commands
 
 Exemplo2:
-"s_Ball_State.msg"
+"s_ball_state.msg"
 Vem de state.proto e corresponde a mensagem Ball_State
