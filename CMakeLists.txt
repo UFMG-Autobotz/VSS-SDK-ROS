@@ -273,11 +273,11 @@ add_library(Strategy_sample src/Sample/strategy.cpp)
 target_link_libraries(Strategy_sample Sample_lib)
 target_link_libraries(Strategy_sample Common)
 
-add_executable(Sample src/Sample/main.cpp)
-target_link_libraries(Sample Common)
-target_link_libraries(Sample ${Boost_LIBRARIES})
-target_link_libraries(Sample Strategy_sample)
-target_link_libraries(Sample ${catkin_LIBRARIES})
+add_executable(sample src/Sample/main.cpp)
+target_link_libraries(sample Common)
+target_link_libraries(sample ${Boost_LIBRARIES})
+target_link_libraries(sample Strategy_sample)
+target_link_libraries(sample ${catkin_LIBRARIES})
 
 # simulator
 add_library(RobotPhysics src/Simulator/RobotPhysics.cpp)
@@ -319,13 +319,13 @@ target_link_libraries(Simulator_lib Interface)
 target_link_libraries(Simulator_lib Arbiter)
 add_dependencies(Simulator_lib ${PROJECT_NAME}_generate_messages_cpp)
 
-add_executable(Simulator src/Simulator/main.cpp)
-target_link_libraries(Simulator ${Boost_LIBRARIES})
-target_link_libraries(Simulator ${catkin_LIBRARIES})
-target_link_libraries(Simulator Simulator_lib)
-target_link_libraries(Simulator ModelStrategy)
-target_link_libraries(Simulator Strategy)
-target_link_libraries(Simulator StrategyBasic)
+add_executable(simulator src/Simulator/main.cpp)
+target_link_libraries(simulator ${Boost_LIBRARIES})
+target_link_libraries(simulator ${catkin_LIBRARIES})
+target_link_libraries(simulator Simulator_lib)
+target_link_libraries(simulator ModelStrategy)
+target_link_libraries(simulator Strategy)
+target_link_libraries(simulator StrategyBasic)
 
 
 # Testando mensagens
