@@ -14,10 +14,7 @@
 bool argParse(int argc, char** argv, string *color, bool *debug, string *ip_receive_state, string *ip_send_debug, string *ip_send_command, string *name);
 
 int main(int argc, char** argv){
-	//Inicializa ROS
-	int c = 1;
-	char *v = "";
-	ros::init(c, &v, "sample");
+	ros::init(argc, argv, "sample"); //Inicializa ROS
 
 	string color;
 	bool debug = false;
