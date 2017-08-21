@@ -5,7 +5,7 @@
 /**
  * This tutorial demonstrates simple receipt of messages over the ROS system.
  */
-void chatterCallback(const vss_sdk::global_state msg)
+void chatterCallback(const vss_sdk_ros::global_state msg)
 {
   ROS_INFO("Blu: \t%s", msg.name_blue.c_str());
   ROS_INFO("Yel: \t%s", msg.name_yellow.c_str());

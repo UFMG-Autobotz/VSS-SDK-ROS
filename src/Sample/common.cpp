@@ -34,7 +34,7 @@ namespace common{
         return atan2(a.y - b.y, a.x - b.x);
     }
 
-    State global_state2State(vss_sdk::global_state global_state, string main_color){
+    State global_state2State(vss_sdk_ros::global_state global_state, string main_color){
         State state;
 
         state.ball.x = global_state.ball.pose.x;           // Pos X

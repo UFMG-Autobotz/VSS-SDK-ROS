@@ -174,7 +174,7 @@ namespace common{
     //! Estimate angle between two straight lines in radian.
     double radian(btVector3, btVector3);
 
-    State global_state2State(vss_sdk::global_state global_state, string main_color);
+    State global_state2State(vss_sdk_ros::global_state global_state, string main_color);
 }
 
 #endif

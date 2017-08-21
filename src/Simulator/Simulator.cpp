@@ -110,7 +110,7 @@ void Simulator::runSimulator(int argc, char *argv[], ModelStrategy *stratBlueTea
 
 void Simulator::runReceiveTeam1(){
   // YELLOW
-  Interface<vss_sdk::global_commands> interface;
+  Interface<vss_sdk_ros::global_commands> interface;
   interface.createReceive(&global_commands_team_1, "commandsYellow");
 
 
@@ -139,7 +139,7 @@ void Simulator::runReceiveTeam1(){
 
 void Simulator::runReceiveTeam2(){
   // BLUE
-  Interface <vss_sdk::global_commands> interface;
+  Interface <vss_sdk_ros::global_commands> interface;
   interface.createReceive(&global_commands_team_2, "commandsBlue");
 
   while(!finish_match && ros::ok()){
@@ -162,7 +162,7 @@ void Simulator::runReceiveTeam2(){
   }
 }
 
-void Simulator::runSender(Interface<vss_sdk::global_state> *interface){
+void Simulator::runSender(Interface<vss_sdk_ros::global_state> *interface){
   global_state.id = 0;
   global_state.situation = caseWorld;
   global_state.origin = false;
@@ -187,7 +187,7 @@ void Simulator::runSender(Interface<vss_sdk::global_state> *interface){
     global_state.name_blue = name_team_2;
   }
 
-  vss_sdk::s_ball_state ball_s;
+  vss_sdk_ros::s_ball_state ball_s;
   ball_s.pose.x = physics->getBallPosition().getX();
   ball_s.pose.y = physics->getBallPosition().getZ();
 
@@ -204,7 +204,7 @@ void Simulator::runSender(Interface<vss_sdk::global_state> *interface){
 
   vector<RobotPhysics*> listRobots = physics->getAllRobots();
   for(int i = 0 ; i < 3 ; i++){
-    vss_sdk::s_robot_state robot_s;
+    vss_sdk_ros::s_robot_state robot_s;
     btVector3 posRobot = getRobotPosition(listRobots.at(i+3));
     btVector3 velRobot = getRobotVelocity(listRobots.at(i+3));
 
@@ -229,7 +229,7 @@ void Simulator::runSender(Interface<vss_sdk::global_state> *interface){
   }
 
   for(int i = 0 ; i < 3 ; i++){
-    vss_sdk::s_robot_state robot_s;
+    vss_sdk_ros::s_robot_state robot_s;
     btVector3 posRobot = getRobotPosition(listRobots.at(i));
     btVector3 velRobot = getRobotVelocity(listRobots.at(i));
 
@@ -263,7 +263,7 @@ void Simulator::runPhysics(){
   arbiter.allocPhysics(physics);
   arbiter.allocReport(&report);
 
-  Interface <vss_sdk::global_state> interface;
+  Interface <vss_sdk_ros::global_state> interface;
   interface.createSend(&global_state, "state");
 
   // REVIEW por enquanto estou inicializando o vetor de robos e de bolas assim

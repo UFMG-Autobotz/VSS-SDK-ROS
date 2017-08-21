@@ -60,8 +60,8 @@ private:
   bool runningPhysics;
   vector<Command> commands;
 
-  vss_sdk::global_state global_state;
-  vss_sdk::global_commands global_commands_team_1, global_commands_team_2;
+  vss_sdk_ros::global_state global_state;
+  vss_sdk_ros::global_commands global_commands_team_1, global_commands_team_2;
 
   GameState* gameState;
   int stratStep;
@@ -96,7 +96,7 @@ public:
 
   void runPhysics();
   void runStrategies();
-  void runSender(Interface<vss_sdk::global_state> *interface);
+  void runSender(Interface<vss_sdk_ros::global_state> *interface);
   void runReceiveTeam1();
   void runReceiveTeam2();
 

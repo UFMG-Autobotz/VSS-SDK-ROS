@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ros::init(c, &v, "vision");
 
     //! Define the interface VSS
-    Interface <vss_sdk::global_state> interface;
+    Interface <vss_sdk_ros::global_state> interface;
     interface.createSend(&global_state, "state");
 
     for(int i = 0 ; i < 8 ; i++){
