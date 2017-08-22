@@ -125,7 +125,6 @@ void Simulator::runReceiveTeam1(){
     }
 
     situation_team1 = global_commands_team_1.situation;
-
     for(int i = 0 ; i < global_commands_team_1.robot_commands.size() ; i++){
       commands.at(i) = Command((float)global_commands_team_1.robot_commands[i].left_vel+0.001, (float)global_commands_team_1.robot_commands[i].right_vel+0.001);
     }
@@ -273,7 +272,7 @@ void Simulator::runPhysics(){
   while(!finish_match && ros::ok()){
     usleep(1000000.f*timeStep/handTime);
 
-    //physics->setBallVelocity(btVector3(0.1, 0, 0));
+    physics->setBallVelocity(btVector3(0.1, 0, 0)); //Oii
     loopBullet++;
     //cout << "--------Ciclo Atual:\t" << loopBullet << "--------" << endl;
     if(gameState->sameState){
@@ -312,7 +311,6 @@ void Simulator::updateReport(){
         report.collisions_in_high_speed_team[0][i]++;
       }
     }
-
     btTransform transTemp;
     listRobots.at(i)->body->getMotionState()->getWorldTransform(transTemp);
 
@@ -419,7 +417,6 @@ void Simulator::runStrategies(){
 
 void Simulator::updateWorld(){
   vector<RobotPhysics*> gRobots = physics->getAllRobots();
-
   for(int i = 0; i < physics->getNumTeams();i++){
     vector<RobotStrategy*> robotStrategiesTeam;
     for(int j = 0; j < numRobotsTeam;j++){

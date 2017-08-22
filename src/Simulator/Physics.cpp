@@ -58,7 +58,7 @@ void Physics::registBodies(){
 
     addBall(2.5, btVector3(85, 0, 65), 0.08);
 
-    btVector3 posTeam1[] = {btVector3(100,4,SIZE_DEPTH- 55),btVector3(35,4,30),btVector3(55,4,45)};
+    btVector3 posTeam1[] = {btVector3(25,4,SIZE_DEPTH- 55),btVector3(35,4,30),btVector3(55,4,45)};
     btVector3 posTeam2[] = {btVector3(SIZE_WIDTH-15,4,55),btVector3(SIZE_WIDTH-25,4,SIZE_DEPTH - SIZE_DEPTH/2.5 + 20),btVector3(SIZE_WIDTH-55,4,85)};
     //Create robots here
     //Team 1

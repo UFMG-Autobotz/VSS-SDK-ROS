@@ -50,7 +50,7 @@ int Arbiter::checkWorld(){
 void Arbiter::position_objects_after_goal_team_1(){
 	vector<btVector3> robots;
 
-	robots.push_back(btVector3(80,20,45));
+	robots.push_back(btVector3(55,4,45));
 	robots.push_back(btVector3(35,4,30));
 	robots.push_back(btVector3(15,4,SIZE_DEPTH- 55));
 	robots.push_back(btVector3(SIZE_WIDTH-55,4,85));
@@ -61,11 +61,10 @@ void Arbiter::position_objects_after_goal_team_1(){
 	physics->setRobotsPosition(robots);
 }
 
-void Arbiter::position_objects_after_goal_team_2
-(){
+void Arbiter::position_objects_after_goal_team_2(){
 	vector<btVector3> robots;
 
-	robots.push_back(btVector3(80,20,45));
+	robots.push_back(btVector3(55,4,45));
 	robots.push_back(btVector3(35,4,30));
 	robots.push_back(btVector3(15,4,SIZE_DEPTH- 55));
 	robots.push_back(btVector3(SIZE_WIDTH-55,4,85));
