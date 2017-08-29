@@ -4,5 +4,5 @@
 # Assim o desenvolvedor por utilizar a seguência de pontos para outras coisas como: Desenhar áreas de atuação,
 # Gradientes e etc.
 
-uint8 id
+uint32 id
 d_pose[] poses

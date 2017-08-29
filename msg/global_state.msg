@@ -1,5 +1,5 @@
 # ID da mensagem, pode ser enviado como contra-prova para verificar se a comunicação está sincronizada. Sendo este o único valor OPICIONAL
-uint8 id
+uint32 id
 
 # Booleano que define a origem da mensagem. Caso TRUE a mensagem vem do VSS-Vision, caso FALSE a mensagem vem do VSS-Simulator
 bool origin
@@ -15,7 +15,7 @@ s_robot_state[3] robots_yellow
 s_robot_state[3] robots_blue
 
 # Situação em que a partida se encontra, será utilizado no futuro, para "obrigar" os robôs sempre a se reposicionarem autonomamente no campo
-uint8 situation
+uint32 situation
   # SITUATIONS
   # 0 = Normal Game
   # 1 = Re-organize (GOAL_TEAM1)
@@ -27,13 +27,13 @@ uint8 situation
   # 99 = Finish
 
 # Tempo: 1, 2, 3 ou 4
-uint8 time
+uint32 time
 
 # Quantidade de Gols do Time Amarelo
-uint8 goals_yellow
+uint32 goals_yellow
 
 # Quantidade de Gols do Time Azul
-uint8 goals_blue
+uint32 goals_blue
 
 # Nome do time amarelo
 string name_yellow
