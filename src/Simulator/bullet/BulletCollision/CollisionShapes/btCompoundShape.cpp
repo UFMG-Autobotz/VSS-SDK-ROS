@@ -78,7 +78,7 @@ void	btCompoundShape::addChildShape(const btTransform& localTransform,btCollisio
 	{
 		const btDbvtVolume	bounds=btDbvtVolume::FromMM(localAabbMin,localAabbMax);
 		int index = m_children.size();
-		child.m_node = m_dynamicAabbTree->insert(bounds,(void*)(long)index);
+		child.m_node = m_dynamicAabbTree->insert(bounds,(void*)index);
 	}
 
 	m_children.push_back(child);
@@ -312,7 +312,7 @@ void btCompoundShape::createAabbTreeFromChildren()
             child.m_childShape->getAabb(child.m_transform,localAabbMin,localAabbMax);
 
             const btDbvtVolume  bounds=btDbvtVolume::FromMM(localAabbMin,localAabbMax);
-            child.m_node = m_dynamicAabbTree->insert(bounds,(void*)(long)index);
+            child.m_node = m_dynamicAabbTree->insert(bounds,(void*)index);
         }
     }
 }
@@ -353,3 +353,4 @@ const char*	btCompoundShape::serialize(void* dataBuffer, btSerializer* serialize
 	}
 	return "btCompoundShapeData";
 }
+

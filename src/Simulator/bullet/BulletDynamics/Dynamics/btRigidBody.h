@@ -359,7 +359,7 @@ public:
 	}
 
 	void applyLinearVelocity(const btVector3& linVel){
-        m_linearVelocity += linVel;
+    m_linearVelocity += linVel;
 	}
 
 	void applyAngularVelocity(const btVector3& angVel){
@@ -390,15 +390,15 @@ public:
 	}
 
 
-	inline void setLinearVelocity(const btVector3& lin_vel)
-	{
+	inline void setLinearVelocity(const btVector3& lin_vel) { // REVIEW
 		//if(idDebug == 1)
 			//cout << endl << "setLinearVelocity" << endl;
 
         //debugLinearVelocity = lin_vel - getLinearVelocity();
 
 		m_updateRevision++;
-		m_linearVelocity = lin_vel;
+		m_linearVelocity = lin_vel; // FIXME 8
+		printf("%lf\n",lin_vel.x());
 	}
 
 	inline void setAngularVelocity(const btVector3& ang_vel)
@@ -633,4 +633,3 @@ struct	btRigidBodyDoubleData
 
 
 #endif //BT_RIGIDBODY_H
-
