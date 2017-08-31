@@ -22,12 +22,14 @@ int Arbiter::checkWorld(){
 		situation = GOAL_TEAM1;
 		report->total_of_goals_team[0]++;
 		cerr << "---Goal RIGHT---" << endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		position_objects_after_goal_team_1();
 	} else if (ball.getX() < 10) {
 		refresh = true;
 		situation = GOAL_TEAM2;
 		report->total_of_goals_team[1]++;
 		cerr << "---Goal LEFT---" << endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		position_objects_after_goal_team_2();
 	}
 
@@ -50,7 +52,7 @@ int Arbiter::checkWorld(){
 void Arbiter::position_objects_after_goal_team_1(){
 	vector<btVector3> robots;
 
-	robots.push_back(btVector3(55,4,45));
+	robots.push_back(btVector3(0,4,0));
 	robots.push_back(btVector3(35,4,30));
 	robots.push_back(btVector3(15,4,SIZE_DEPTH- 55));
 	robots.push_back(btVector3(SIZE_WIDTH-55,4,85));

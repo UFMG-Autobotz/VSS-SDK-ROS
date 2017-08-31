@@ -398,7 +398,7 @@ public:
 
 		m_updateRevision++;
 		m_linearVelocity = lin_vel; // FIXME 8
-		printf("%lf\n",lin_vel.x());
+		// printf("%lf\n",lin_vel.x());
 	}
 
 	inline void setAngularVelocity(const btVector3& ang_vel)
