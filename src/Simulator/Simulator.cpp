@@ -268,10 +268,6 @@ void Simulator::runPhysics(){
   Interface <vss_sdk_ros::global_state> interface;
   interface.createSend(&global_state, "state");
 
-  // REVIEW por enquanto estou inicializando o vetor de robos e de bolas assim
-  // porque acho que o viewer pode mandar mais de 3 robos e mais de uma bolas
-  // verificar se é possivel so definir o tamanho no .msg
-  // ros::Rate r(60);
   while(!finish_match && ros::ok()){
     usleep(1000000.f*timeStep/handTime);
 
@@ -297,8 +293,6 @@ void Simulator::runPhysics(){
     }
 
     runSender(&interface);
-    //ros::spinOnce();
-    //r.sleep();
   }
 }
 
@@ -367,7 +361,6 @@ void Simulator::runStrategies(){
     }
 
   }
-  //ros::Rate r(60);
   while(!finish_match && ros::ok()){
     usleep(1000000.f*timeStep/handTime);
 

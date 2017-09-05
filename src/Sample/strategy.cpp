@@ -52,8 +52,9 @@ void Strategy::loop(){
 void Strategy::calc_strategy(){
 	if(changePose) {
 		changePose = false;
-		final.x = (rand() % 100) + 30;
-		final.y = (rand() % 80) + 30;
+		final.x = state.ball.x;
+		final.y = state.ball.y;
+		printf("%f %f\n",state.ball.x,state.ball.y);
 		final.z = rand() % 360;
 	}
 
