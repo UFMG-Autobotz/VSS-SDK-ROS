@@ -113,9 +113,7 @@ void Simulator::runReceiveTeam1(){
   Interface<vss_sdk_ros::global_commands> interface;
   interface.createReceive(&global_commands_team_1, "commandsYellow");
 
-
-
-  //TODO dar ritmo para o loop
+  ros::Rate r(60);
   while(!finish_match && ros::ok()){
     interface.receive();
 
@@ -133,6 +131,8 @@ void Simulator::runReceiveTeam1(){
       name_team_1 = global_commands_team_1.name;
       has_new_name_team_1 = true;
     }
+    ros::spinOnce();
+    r.sleep();
   }
 }
 
@@ -141,6 +141,7 @@ void Simulator::runReceiveTeam2(){
   Interface <vss_sdk_ros::global_commands> interface;
   interface.createReceive(&global_commands_team_2, "commandsBlue");
 
+  ros::Rate r(60);
   while(!finish_match && ros::ok()){
     interface.receive();
 
@@ -158,6 +159,8 @@ void Simulator::runReceiveTeam2(){
       name_team_2 = global_commands_team_2.name;
       has_new_name_team_2 = true;
     }
+    ros::spinOnce();
+    r.sleep();
   }
 }
 
@@ -268,7 +271,7 @@ void Simulator::runPhysics(){
   // REVIEW por enquanto estou inicializando o vetor de robos e de bolas assim
   // porque acho que o viewer pode mandar mais de 3 robos e mais de uma bolas
   // verificar se é possivel so definir o tamanho no .msg
-
+  // ros::Rate r(60);
   while(!finish_match && ros::ok()){
     usleep(1000000.f*timeStep/handTime);
 
@@ -294,6 +297,8 @@ void Simulator::runPhysics(){
     }
 
     runSender(&interface);
+    //ros::spinOnce();
+    //r.sleep();
   }
 }
 
@@ -362,7 +367,7 @@ void Simulator::runStrategies(){
     }
 
   }
-
+  //ros::Rate r(60);
   while(!finish_match && ros::ok()){
     usleep(1000000.f*timeStep/handTime);
 
@@ -412,6 +417,8 @@ void Simulator::runStrategies(){
 
       gameState->sameState = true;
     }
+    //ros::spinOnce();
+    //r.sleep();
   }
 }
 
