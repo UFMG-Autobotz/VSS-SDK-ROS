@@ -24,6 +24,7 @@ void Strategy::init(string main_color, bool is_debug, bool real_environment, str
 }
 
 void Strategy::loop(){
+	ros::Rate r(60);
 	while(true && ros::ok()) {
 		// DON'T REMOVE receive_data();
 		receive_state();
@@ -43,6 +44,8 @@ void Strategy::loop(){
 		if(is_debug)
 			send_debug();
 		// DON'T REMOVE'
+		ros::spinOnce();
+		r.sleep();
 	}
 }
 
