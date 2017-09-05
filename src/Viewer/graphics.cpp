@@ -38,7 +38,7 @@ GLUquadric* qobj;
 //! Inicializa o vector de robôs com valores default.
 //! O software tem o conceito de times
 Graphics::Graphics(){
-  
+
   //! Inicializa o time 1
   for(int i = 0 ; i < 3 ; i++){
     Robot robot;
@@ -145,7 +145,7 @@ void Graphics::debug_thread_team1(){
   //! Recebe um pacote novo
   interface.receive();
 
-  //TODO dar ritmo ao loop
+  ros::Rate r(15); //Frequência de atualização, 15Hz para economizar processamento
   while(ros::ok()){
 
     //! Recebe os vetores de movimento
@@ -187,6 +187,8 @@ void Graphics::debug_thread_team1(){
       }
       robots.at(i).path = path;
     }
+    ros::spinOnce();
+    r.sleep();
   }
 }
 
@@ -197,8 +199,7 @@ void Graphics::debug_thread_team2() {
 
   //! Recebe um pacote novo
   interface.receive();
-
-  //TODO dar ritmo ao loop
+  ros::Rate r(15); //Frequência de atualização, 15Hz para economizar processamento
   while(ros::ok()){
 
     //! Recebe os vetores de movimento
@@ -238,6 +239,8 @@ void Graphics::debug_thread_team2() {
       }
       robots.at(i+3).path = path;
     }
+    ros::spinOnce();
+    r.sleep();
   }
 }
 
@@ -246,9 +249,7 @@ void Graphics::state_thread(){
   Interface<vss_sdk_ros::global_state> interface;
   interface.createReceive(&global_state, "state");
 
-
-
-  //TODO dar ritmo para o loop
+  ros::Rate r(60); //Frequência de atualização, 60Hz para ficar suave
   while(ros::ok()){
     //! Recebe um novo pacote
     interface.receive();
@@ -301,7 +302,8 @@ void Graphics::state_thread(){
     if(global_state.name_blue.size() != 0){
       static_name_team_2 = global_state.name_blue;
     }
-
+    ros::spinOnce();
+    r.sleep();
   }
 }
 
