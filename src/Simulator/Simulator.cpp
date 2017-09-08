@@ -271,7 +271,7 @@ void Simulator::runPhysics(){
   while(!finish_match && ros::ok()){
     usleep(1000000.f*timeStep/handTime);
 
-    physics->setBallVelocity(btVector3(0.1, 0, 0)); //Oii
+    // physics->setBallVelocity(btVector3(0.1, 0, 0)); //Oii
     loopBullet++;
     //cout << "--------Ciclo Atual:\t" << loopBullet << "--------" << endl;
     if(gameState->sameState){

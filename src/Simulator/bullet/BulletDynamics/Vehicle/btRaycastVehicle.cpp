@@ -635,6 +635,7 @@ void btRaycastVehicle::updateFriction(btScalar timeStep) { // REVIEW
 	btVector3 suspLinVelocity;
 	suspLinVelocity = btVector3(0,m_chassisBody->getLinearVelocity().getY(),0);
 
+	// m_rayMotion = 5.558484;
 	float modCenterMassLinVelXZ = m_rayMotion/strRayVelocity.getInclination();
 
 	float linearMovement = m_wheelInfo[leftWheel].m_localVelocity - m_wheelInfo[rightWheel].m_localVelocity;
@@ -646,36 +647,36 @@ void btRaycastVehicle::updateFriction(btScalar timeStep) { // REVIEW
 
 	m_chassisBody->setLinearVelocity(m_absCenterMassLinVel); // FIXME 7
 
-	// float centAceleleration = modCenterMassLinVelXZ*modCenterMassLinVelXZ/m_rayMotion;
-	// float modCentVelocity = centAceleleration*timeStep;
-  //
-	// m_centripetalVelocity = modCentVelocity*m_centripetalVelocity-hitedSideVelocityWS;
+	float centAceleleration = modCenterMassLinVelXZ*modCenterMassLinVelXZ/m_rayMotion;
+	float modCentVelocity = centAceleleration*timeStep;
 
-	// if(m_rayMotion == 0.f) m_centripetalVelocity = btVector3(0,0,0);
+	m_centripetalVelocity = modCentVelocity*m_centripetalVelocity-hitedSideVelocityWS;
 
-	// updateTransformCentripetalForce(timeStep);
+	if(m_rayMotion == 0.f) m_centripetalVelocity = btVector3(0,0,0);
 
-	// float centerMassAngY = modCenterMassLinVelXZ/m_rayMotion;
-  //
-	// btVector3 relLocalVelocity = getWorldVectorInLocalCoordinate(m_chassisBody->getLinearVelocity());
-  //
-	// if(m_rayMotion == 0.f) {
-	// 	centerMassAngY = m_wheelInfo[rightWheel].m_localVelocity/(distRelSteeringWh/2);
-	// }else{
-	// 	if(relLocalVelocity.getX() > 0) {
-	// 		if(m_wheelInfo[leftWheel].m_localVelocity > m_wheelInfo[rightWheel].m_localVelocity)
-	// 			centerMassAngY = -centerMassAngY;
-	// 	}else{
-	// 		if(m_wheelInfo[leftWheel].m_localVelocity < m_wheelInfo[rightWheel].m_localVelocity)
-	// 			centerMassAngY = -centerMassAngY;
-	// 	}
-	// }
-  //
-	// m_absCenterMassAngVel = btVector3(m_chassisBody->getAngularVelocity().getX(),0,m_chassisBody->getAngularVelocity().getZ())+getUpVector()*centerMassAngY; // btVector3(m_chassisBody->getAngularVelocity().getX(),centerMassAngY,m_chassisBody->getAngularVelocity().getZ());
-  //
-	// m_chassisBody->setAngularVelocity(m_absCenterMassAngVel);
-  //
-	// debugDrawProperties();
+	updateTransformCentripetalForce(timeStep);
+
+	float centerMassAngY = modCenterMassLinVelXZ/m_rayMotion;
+
+	btVector3 relLocalVelocity = getWorldVectorInLocalCoordinate(m_chassisBody->getLinearVelocity());
+
+	if(m_rayMotion == 0.f) {
+		centerMassAngY = m_wheelInfo[rightWheel].m_localVelocity/(distRelSteeringWh/2);
+	}else{
+		if(relLocalVelocity.getX() > 0) {
+			if(m_wheelInfo[leftWheel].m_localVelocity > m_wheelInfo[rightWheel].m_localVelocity)
+				centerMassAngY = -centerMassAngY;
+		}else{
+			if(m_wheelInfo[leftWheel].m_localVelocity < m_wheelInfo[rightWheel].m_localVelocity)
+				centerMassAngY = -centerMassAngY;
+		}
+	}
+
+	m_absCenterMassAngVel = btVector3(m_chassisBody->getAngularVelocity().getX(),0,m_chassisBody->getAngularVelocity().getZ())+getUpVector()*centerMassAngY; // btVector3(m_chassisBody->getAngularVelocity().getX(),centerMassAngY,m_chassisBody->getAngularVelocity().getZ());
+
+	m_chassisBody->setAngularVelocity(m_absCenterMassAngVel);
+
+	debugDrawProperties();
 }
 
 void btRaycastVehicle::updateLocalComponentsHited(){
